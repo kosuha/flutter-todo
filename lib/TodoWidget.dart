@@ -19,13 +19,28 @@ class TodoWidgetState extends State<TodoWidget> {
       alignment: Alignment.center,
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(10),
-      // decoration: BoxDecoration(
-      //   border: Border(top: BorderSide(color: Color(0xff000000))),
-      // ),
-      child: Flex(
-        direction: Axis.vertical,
+      decoration: BoxDecoration(
+        border: Border.all(color: Color(0xffff0000)),
+      ),
+      child: Column(
         children: [
-          Text("Todo..."),
+          Flex(
+            direction: Axis.horizontal,
+            children: [
+              Expanded(
+                child: Container(
+                    child: Text(
+                  "todo~~~",
+                  style: TextStyle(fontSize: 16),
+                )),
+              ),
+              Checkbox(
+                  value: false,
+                  onChanged: (value) {
+                    if (value == true) {}
+                  }),
+            ],
+          ),
         ],
       ),
     );

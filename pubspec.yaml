@@ -38,6 +38,9 @@ dependencies:
   table_calendar: ^3.0.9
   flutter_keyboard_size: ^1.0.1
   image_picker: ^0.8.6+1
+  sqflite: ^2.2.4+1
+  path: ^1.8.2
+  path_provider: ^2.0.12
 
 dev_dependencies:
   flutter_test:

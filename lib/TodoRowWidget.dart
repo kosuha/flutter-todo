@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 
 class TodoRowWidget extends StatefulWidget {
-  const TodoRowWidget({super.key});
-  // const TodoRowWidget(
-  //     {Key? key,
-  //     required this.bottomState,
-  //     required this.onTabEvent,
-  //     required this.onEditingCompleteEvent})
-  //     : super(key: key);
+  // const TodoRowWidget({super.key});
+  const TodoRowWidget({Key? key, required this.done, required this.text})
+      : super(key: key);
 
-  // final Function bottomState;
-  // final Function onTabEvent;
-  // final Function onEditingCompleteEvent;
+  final bool done;
+  final String text;
 
   @override
   State<TodoRowWidget> createState() => TodoRowWidgetState();
@@ -23,7 +18,7 @@ class TodoRowWidgetState extends State<TodoRowWidget> {
   @override
   void initState() {
     super.initState();
-    checked = false;
+    checked = widget.done;
   }
 
   @override
@@ -59,7 +54,7 @@ class TodoRowWidgetState extends State<TodoRowWidget> {
           child: Container(
               margin: EdgeInsets.only(right: 10),
               child: Text(
-                "버튼 누르면 투듀리스트 추가하는 기능 만들기러기차!",
+                widget.text,
                 style: textStyle,
               )),
         ),

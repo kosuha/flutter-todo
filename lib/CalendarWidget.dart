@@ -3,7 +3,14 @@ import 'MonthTitleWidget.dart';
 import 'MonthBodyWidget.dart';
 
 class CalendarWidget extends StatefulWidget {
-  const CalendarWidget({super.key});
+  // const CalendarWidget({super.key});
+  const CalendarWidget(
+      {Key? key, required this.year, required this.month, required this.day})
+      : super(key: key);
+
+  final int year;
+  final int month;
+  final int day;
 
   @override
   State<CalendarWidget> createState() => CalendarWidgetState();
@@ -25,56 +32,54 @@ class CalendarWidgetState extends State<CalendarWidget> {
     "November",
     "December"
   ];
-  static DateTime now = DateTime.now();
-  int year = 0;
-  int month = 0;
+  // static DateTime now = DateTime.now();
+  // int year = 0;
+  // int month = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    year = now.year;
-    month = now.month;
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   year = now.year;
+  //   month = now.month;
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.5,
-      padding: EdgeInsets.fromLTRB(10, 60, 10, 0),
+      height: (MediaQuery.of(context).size.height -
+              MediaQuery.of(context).padding.top) *
+          0.5,
+      padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
       child: Flex(
         direction: Axis.vertical,
         children: [
           Container(
             padding: EdgeInsets.all(10),
             child: MonthTitleWidget(
-              year: year,
-              monthString: months[month - 1],
+              year: widget.year,
+              monthString: months[widget.month - 1],
             ),
           ),
-          Container(
-            child: GestureDetector(
-              child: MonthBodyWidget(
-                year: year,
-                month: month,
-                weekdays: weekdays,
-                months: months,
-              ),
-            ),
-          )
+          MonthBodyWidget(
+            year: widget.year,
+            month: widget.month,
+            weekdays: weekdays,
+            months: months,
+          ),
         ],
       ),
     );
   }
 
-  void setYear(int yearTo) {
-    setState(() {
-      year = yearTo;
-    });
-  }
+  // void setYear(int yearTo) {
+  //   setState(() {
+  //     year = yearTo;
+  //   });
+  // }
 
-  void setMonth(int monthTo) {
-    setState(() {
-      month = monthTo;
-    });
-  }
+  // void setMonth(int monthTo) {
+  //   setState(() {
+  //     month = monthTo;
+  //   });
+  // }
 }

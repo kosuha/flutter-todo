@@ -7,6 +7,7 @@ class AddTodoWidget extends StatelessWidget {
       required this.setAddState,
       required this.setTodoList,
       required this.getTodoList,
+      required this.todoListScrollController,
       required this.year,
       required this.month,
       required this.day})
@@ -15,6 +16,7 @@ class AddTodoWidget extends StatelessWidget {
   final Function setTodoList;
   final Function setAddState;
   final Function getTodoList;
+  final ScrollController todoListScrollController;
   final int year;
   final int month;
   final int day;
@@ -30,6 +32,7 @@ class AddTodoWidget extends StatelessWidget {
               return StatefulBuilder(
                   builder: (BuildContext context, StateSetter bottomState) {
                 return WriteModalWidget(
+                  todoListScrollController: todoListScrollController,
                   year: year,
                   month: month,
                   day: day,

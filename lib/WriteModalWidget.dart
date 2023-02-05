@@ -7,7 +7,7 @@ class WriteModalWidget extends StatefulWidget {
       {Key? key,
       // required this.setAddState,
       required this.setTodoList,
-      // required this.getTodoList,
+      required this.todoListScrollController,
       required this.year,
       required this.month,
       required this.day})
@@ -15,7 +15,7 @@ class WriteModalWidget extends StatefulWidget {
 
   // final Function setAddState;
   final Function setTodoList;
-  // final Function getTodoList;
+  final ScrollController todoListScrollController;
   final int year;
   final int month;
   final int day;
@@ -61,5 +61,9 @@ class _WriteModalWidgetState extends State<WriteModalWidget> {
         done: 0,
         data: _textEditingController.text));
     widget.setTodoList();
+    widget.todoListScrollController.animateTo(
+        widget.todoListScrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.ease);
   }
 }

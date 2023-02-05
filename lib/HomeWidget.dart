@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:laum/database/Todo.dart';
+import 'database/Todo.dart';
 import 'CalendarWidget.dart';
 import 'TodoWidget.dart';
 import 'AddTodoWidget.dart';
@@ -13,6 +13,7 @@ class HomeWidget extends StatefulWidget {
 }
 
 class HomeWidgetState extends State<HomeWidget> {
+  final ScrollController todoListScrollController = ScrollController();
   static DateTime now = DateTime.now();
   int year = 0;
   int month = 0;
@@ -40,6 +41,7 @@ class HomeWidgetState extends State<HomeWidget> {
       Offstage(
         offstage: addState,
         child: CalendarWidget(
+          setDate: setDate,
           year: year,
           month: month,
           day: day,
@@ -52,9 +54,8 @@ class HomeWidgetState extends State<HomeWidget> {
         child: TodoWidget(
           getTodoList: getTodoList,
           setTodoChecked: setTodoChecked,
-          year: year,
-          month: month,
-          day: day,
+          todoListScrollController: todoListScrollController,
+          addState: addState,
         ),
       ),
     ];
@@ -62,14 +63,24 @@ class HomeWidgetState extends State<HomeWidget> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
-        child: Column(
-          children: childrenList,
+        child: GestureDetector(
+          onHorizontalDragEnd: (DragEndDetails details) {
+            if (details.primaryVelocity! > 0) {
+              setDate(year, month, day - 1);
+            } else if (details.primaryVelocity! < 0) {
+              setDate(year, month, day + 1);
+            }
+          },
+          child: Column(
+            children: childrenList,
+          ),
         ),
       ),
       floatingActionButton: AddTodoWidget(
         setAddState: setAddState,
         getTodoList: getTodoList,
         setTodoList: setTodoList,
+        todoListScrollController: todoListScrollController,
         year: year,
         month: month,
         day: day,
@@ -83,22 +94,15 @@ class HomeWidgetState extends State<HomeWidget> {
     });
   }
 
-  void setYear(int yearTo) {
-    setState(() {
-      year = yearTo;
-    });
-  }
+  void setDate(int yearTo, int monthTo, int dayTo) {
+    DateTime date = DateTime(yearTo, monthTo, dayTo);
 
-  void setMonth(int monthTo) {
     setState(() {
-      month = monthTo;
+      year = date.year;
+      month = date.month;
+      day = date.day;
     });
-  }
-
-  void setDay(int dayTo) {
-    setState(() {
-      day = dayTo;
-    });
+    setTodoList();
   }
 
   void setTodoList() async {
@@ -113,6 +117,7 @@ class HomeWidgetState extends State<HomeWidget> {
     }
     setState(() {
       todoList = newTodoList;
+      addState = addState;
     });
   }
 

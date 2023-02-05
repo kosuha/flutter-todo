@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 class MonthBodyWidget extends StatelessWidget {
   const MonthBodyWidget(
       {Key? key,
+      required this.setDate,
       required this.year,
       required this.month,
+      required this.day,
       required this.weekdays,
       required this.months})
       : super(key: key);
 
+  final Function setDate;
   final int year;
   final int month;
+  final int day;
   final List<String> weekdays;
   final List<String> months;
 
@@ -114,10 +118,12 @@ class MonthBodyWidget extends StatelessWidget {
 
   GestureDetector dayContainer(
       Map<String, dynamic> dateMap, BuildContext context) {
-    int date = dateMap["day"];
     bool isToday = (now.year == dateMap["year"] &&
         now.month == dateMap["month"] &&
         now.day == dateMap["day"]);
+    bool isSelectedDay = (year == dateMap["year"] &&
+        month == dateMap["month"] &&
+        day == dateMap["day"]);
     int weekday =
         DateTime(dateMap["year"], dateMap["month"], dateMap["day"]).weekday;
     Color dayColor = Color(0xff000000);
@@ -135,14 +141,19 @@ class MonthBodyWidget extends StatelessWidget {
       color: Color(0x00000000),
     );
 
-    if (isToday) {
-      isToday = true;
+    if (isSelectedDay) {
       boxDecoration = BoxDecoration(
           color: Color(0xffffffff),
           shape: BoxShape.circle,
           border: Border.all(color: Color(0xff000000)));
-      textStyle =
-          TextStyle(color: dayColor, fontSize: 16, fontWeight: FontWeight.w600);
+    }
+
+    if (isToday) {
+      textStyle = TextStyle(
+          color: dayColor,
+          fontSize: 16,
+          fontWeight: FontWeight.w900,
+          decoration: TextDecoration.underline);
     }
 
     if (!dateMap["inMonth"]) {
@@ -152,7 +163,8 @@ class MonthBodyWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        print("tab");
+        print("object");
+        setDate(dateMap["year"], dateMap["month"], dateMap["day"]);
       },
       child: Container(
         alignment: Alignment.center,
@@ -161,7 +173,7 @@ class MonthBodyWidget extends StatelessWidget {
         margin: EdgeInsets.all(1.0),
         decoration: boxDecoration,
         child: Text(
-          "$date",
+          "${dateMap["day"]}",
           style: textStyle,
         ),
       ),

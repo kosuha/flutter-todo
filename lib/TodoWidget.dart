@@ -2,26 +2,24 @@ import 'package:flutter/material.dart';
 import 'TodoListWidget.dart';
 
 class TodoWidget extends StatefulWidget {
-  const TodoWidget(
-      {Key? key,
-      required this.getTodoList,
-      required this.setTodoChecked,
-      required this.year,
-      required this.month,
-      required this.day})
-      : super(key: key);
+  const TodoWidget({
+    Key? key,
+    required this.getTodoList,
+    required this.setTodoChecked,
+    required this.todoListScrollController,
+    required this.addState,
+  }) : super(key: key);
 
   final Function getTodoList;
   final Function setTodoChecked;
-  final int year;
-  final int month;
-  final int day;
+  final ScrollController todoListScrollController;
+  final bool addState;
 
   @override
-  State<TodoWidget> createState() => TodoWidgetState();
+  State<TodoWidget> createState() => _TodoWidgetState();
 }
 
-class TodoWidgetState extends State<TodoWidget> {
+class _TodoWidgetState extends State<TodoWidget> {
   @override
   void initState() {
     super.initState();
@@ -35,17 +33,11 @@ class TodoWidgetState extends State<TodoWidget> {
           0.5,
       alignment: Alignment.topLeft,
       padding: EdgeInsets.all(10),
-      // decoration: BoxDecoration(
-      //   border: Border.all(color: Color(0xffff0000)),
-      // ),
-
       child: SingleChildScrollView(
+        controller: widget.todoListScrollController,
         child: TodoListWidget(
           getTodoList: widget.getTodoList,
           setTodoChecked: widget.setTodoChecked,
-          year: widget.year,
-          month: widget.month,
-          day: widget.day,
         ),
       ),
     );

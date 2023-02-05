@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 import 'database/Todo.dart';
 import 'TodoRowWidget.dart';
-import 'database/TodoProvider.dart';
 
 class TodoListWidget extends StatelessWidget {
-  const TodoListWidget(
-      {Key? key,
-      required this.getTodoList,
-      required this.setTodoChecked,
-      required this.year,
-      required this.month,
-      required this.day})
-      : super(key: key);
+  const TodoListWidget({
+    Key? key,
+    required this.getTodoList,
+    required this.setTodoChecked,
+  }) : super(key: key);
 
   final Function getTodoList;
   final Function setTodoChecked;
-  final int year;
-  final int month;
-  final int day;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +25,7 @@ class TodoListWidget extends StatelessWidget {
     }
 
     todoList.add(Container(
-      height: MediaQuery.of(context).padding.top,
+      height: MediaQuery.of(context).padding.top * 2,
     ));
 
     return Column(

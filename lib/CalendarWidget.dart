@@ -5,9 +5,14 @@ import 'MonthBodyWidget.dart';
 class CalendarWidget extends StatefulWidget {
   // const CalendarWidget({super.key});
   const CalendarWidget(
-      {Key? key, required this.year, required this.month, required this.day})
+      {Key? key,
+      required this.setDate,
+      required this.year,
+      required this.month,
+      required this.day})
       : super(key: key);
 
+  final Function setDate;
   final int year;
   final int month;
   final int day;
@@ -32,16 +37,6 @@ class CalendarWidgetState extends State<CalendarWidget> {
     "November",
     "December"
   ];
-  // static DateTime now = DateTime.now();
-  // int year = 0;
-  // int month = 0;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   year = now.year;
-  //   month = now.month;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +56,10 @@ class CalendarWidgetState extends State<CalendarWidget> {
             ),
           ),
           MonthBodyWidget(
+            setDate: widget.setDate,
             year: widget.year,
             month: widget.month,
+            day: widget.day,
             weekdays: weekdays,
             months: months,
           ),
@@ -70,16 +67,4 @@ class CalendarWidgetState extends State<CalendarWidget> {
       ),
     );
   }
-
-  // void setYear(int yearTo) {
-  //   setState(() {
-  //     year = yearTo;
-  //   });
-  // }
-
-  // void setMonth(int monthTo) {
-  //   setState(() {
-  //     month = monthTo;
-  //   });
-  // }
 }

@@ -18,6 +18,7 @@ class TodoProvider {
 
   initDB() async {
     String path = join(await getDatabasesPath(), 'database.db');
+    print(path);
     return await openDatabase(
       path,
       version: 1,

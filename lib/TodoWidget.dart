@@ -5,12 +5,14 @@ class TodoWidget extends StatefulWidget {
   const TodoWidget(
       {Key? key,
       required this.getTodoList,
+      required this.setTodoChecked,
       required this.year,
       required this.month,
       required this.day})
       : super(key: key);
 
   final Function getTodoList;
+  final Function setTodoChecked;
   final int year;
   final int month;
   final int day;
@@ -40,6 +42,7 @@ class TodoWidgetState extends State<TodoWidget> {
       child: SingleChildScrollView(
         child: TodoListWidget(
           getTodoList: widget.getTodoList,
+          setTodoChecked: widget.setTodoChecked,
           year: widget.year,
           month: widget.month,
           day: widget.day,

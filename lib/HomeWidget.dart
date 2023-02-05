@@ -51,6 +51,7 @@ class HomeWidgetState extends State<HomeWidget> {
         },
         child: TodoWidget(
           getTodoList: getTodoList,
+          setTodoChecked: setTodoChecked,
           year: year,
           month: month,
           day: day,
@@ -104,7 +105,7 @@ class HomeWidgetState extends State<HomeWidget> {
     TodoProvider todoProvider = TodoProvider();
 
     final Future<List<Todo>> todos =
-        todoProvider.getDB(DateTime(year, month, day).toString());
+        todoProvider.getListByDate(DateTime(year, month, day).toString());
     List<Todo> newTodoList = [];
 
     for (Todo t in (await todos)) {
@@ -117,5 +118,18 @@ class HomeWidgetState extends State<HomeWidget> {
 
   List<Todo> getTodoList() {
     return todoList;
+  }
+
+  void setTodoChecked(int id, int checked) {
+    for (Todo e in todoList) {
+      if (e.id == id) {
+        TodoProvider todoProvider = TodoProvider();
+        setState(() {
+          e.done = checked;
+        });
+        todoProvider.setDoneById(id, checked);
+        return;
+      }
+    }
   }
 }

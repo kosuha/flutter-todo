@@ -56,6 +56,7 @@ class _WriteModalWidgetState extends State<WriteModalWidget> {
     if (_textEditingController.text.trim() == "") return;
     TodoProvider todoProvider = TodoProvider();
     todoProvider.insert(Todo(
+        id: 0,
         date: DateTime(widget.year, widget.month, widget.day),
         done: 0,
         data: _textEditingController.text));

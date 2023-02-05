@@ -1,11 +1,11 @@
 class Todo {
-  int? id;
+  int id;
   DateTime date;
   int done;
   String data;
 
   Todo({
-    this.id,
+    required this.id,
     required this.date,
     required this.done,
     required this.data,

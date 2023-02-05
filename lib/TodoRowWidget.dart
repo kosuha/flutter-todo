@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
+import 'database/Todo.dart';
+import 'database/TodoProvider.dart';
 
 class TodoRowWidget extends StatefulWidget {
   // const TodoRowWidget({super.key});
-  const TodoRowWidget({Key? key, required this.done, required this.text})
-      : super(key: key);
+  const TodoRowWidget({
+    Key? key,
+    required this.todo,
+    required this.setTodoChecked,
+  }) : super(key: key);
 
-  final bool done;
-  final String text;
+  final Todo todo;
+  final Function setTodoChecked;
 
   @override
   State<TodoRowWidget> createState() => TodoRowWidgetState();
 }
 
 class TodoRowWidgetState extends State<TodoRowWidget> {
-  bool checked = false;
-
   @override
   void initState() {
     super.initState();
-    checked = widget.done;
   }
 
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = TextStyle(fontSize: 16);
-    if (checked == true) {
+    if (widget.todo.done == 1) {
       textStyle =
           TextStyle(fontSize: 16, decoration: TextDecoration.lineThrough);
     } else {
@@ -38,27 +40,33 @@ class TodoRowWidgetState extends State<TodoRowWidget> {
             activeColor: Color(0x00000000),
             checkColor: Color(0xff00ff00),
             side: BorderSide(color: Color(0xff000000)),
-            value: checked,
+            value: isTrue(widget.todo.done),
             onChanged: (value) {
+              int checked = 0;
               if (value == true) {
-                setState(() {
-                  checked = true;
-                });
+                checked = 1;
               } else {
-                setState(() {
-                  checked = false;
-                });
+                checked = 0;
               }
+              widget.setTodoChecked(widget.todo.id, checked);
             }),
         Expanded(
           child: Container(
               margin: EdgeInsets.only(right: 10),
               child: Text(
-                widget.text,
+                widget.todo.data,
                 style: textStyle,
               )),
         ),
       ],
     );
+  }
+
+  bool isTrue(int n) {
+    if (n == 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

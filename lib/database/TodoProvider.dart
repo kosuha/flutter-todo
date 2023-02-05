@@ -39,7 +39,7 @@ class TodoProvider {
     );
   }
 
-  Future<List<Todo>> getDB(String date) async {
+  Future<List<Todo>> getListByDate(String date) async {
     final db = await database;
     final List<Map<String, dynamic>> maps =
         await db.rawQuery('SELECT * FROM $tableName WHERE date = ?', [date]);
@@ -54,5 +54,12 @@ class TodoProvider {
       ));
     }
     return list;
+  }
+
+  Future<void> setDoneById(int id, int checked) async {
+    final db = await database;
+
+    await db
+        .rawQuery('UPDATE $tableName SET done = $checked WHERE id = ?', [id]);
   }
 }

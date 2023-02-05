@@ -25,7 +25,7 @@ class TodoListWidget extends StatelessWidget {
     }
 
     todoList.add(Container(
-      height: MediaQuery.of(context).padding.top * 2,
+      height: MediaQuery.of(context).padding.top,
     ));
 
     return Column(

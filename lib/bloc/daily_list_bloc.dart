@@ -31,15 +31,19 @@ class DailyListBloc {
 
   setDone(int id, int done) {
     TodoProvider todoProvider = TodoProvider();
+    List<Todo> newDailyList = [];
 
     todoProvider.setDoneById(id, done);
-    for (Todo todo in _dailyList) {
-      if (todo.id == id) {
-        todo.done = done;
-      }
-    }
+    // for (Todo todo in _dailyList) {
+    //   int doneTo = todo.done;
+    //   if (todo.id == id) {
+    //     doneTo = done;
+    //   }
+    //   newDailyList.add(
+    //       Todo(id: todo.id, date: todo.date, done: doneTo, data: todo.data));
+    // }
 
-    __dailyListSubject.sink.add(_dailyList);
+    // __dailyListSubject.sink.add(newDailyList);
   }
 
   // insertTodo() async {

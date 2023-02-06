@@ -17,7 +17,7 @@ class DailyListView extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             List<Todo> todos = snapshot.data;
-            print(todos);
+
             return StreamBuilder(
               stream: dailyListBloc.dailyList,
               initialData: todos,
@@ -37,13 +37,11 @@ class DailyListView extends StatelessWidget {
                               int checked = 0;
                               if (value == true) {
                                 checked = 1;
-                                print("1");
                               } else {
                                 checked = 0;
-                                print("0");
                               }
                               dailyListBloc.setDone(todo.id, checked);
-                              // print(todo.done);
+                              dailyListBloc.getDailyList(todo.date);
                             }),
                         Expanded(
                           child: Container(
@@ -60,11 +58,11 @@ class DailyListView extends StatelessWidget {
                     children: listTodo,
                   );
                 }
-                return CircularProgressIndicator();
+                return Text("loading...");
               },
             );
           }
-          return CircularProgressIndicator();
+          return Text("loading...");
         },
       ),
     );

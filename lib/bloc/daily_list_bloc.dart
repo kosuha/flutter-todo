@@ -31,8 +31,6 @@ class DailyListBloc {
 
   setDone(int id, int done) {
     TodoProvider todoProvider = TodoProvider();
-    List<Todo> newDailyList = [];
-
     todoProvider.setDoneById(id, done);
     // for (Todo todo in _dailyList) {
     //   int doneTo = todo.done;

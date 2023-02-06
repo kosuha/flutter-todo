@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'ui/bloc_display_widget.dart';
+import 'HomeWidget.dart';
+import 'SettingWidget.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,19 +12,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: _title,
-      home: BlocDisplayWidget(),
+      home: MainWidget(),
     );
   }
 }
 
-/*
-
-bloc: 데이터 처리
-
-
-components: 처리된 데이터를 ui에 보내주기
-
-
-ui: 화면을 그려줌
-
-*/
+class MainWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // resizeToAvoidBottomInset: true,
+      body: HomeWidget(),
+    );
+  }
+}

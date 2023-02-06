@@ -3,8 +3,8 @@ import '../bloc/calendar_bloc.dart';
 import '../bloc/daily_list_bloc.dart';
 import '../components/calendar_view.dart';
 import '../components/daily_list_view.dart';
-import 'package:laum/bloc/todo.dart';
-import '../bloc/todo_provider.dart';
+import 'package:laum/model/todo.dart';
+import '../model/todo_provider.dart';
 
 late CalendarBloc calendarBloc;
 late DailyListBloc dailyListBloc;

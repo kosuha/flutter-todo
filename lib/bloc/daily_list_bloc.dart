@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import 'todo.dart';
-import 'todo_provider.dart';
+import '../model/todo.dart';
+import '../model/todo_provider.dart';
 
 // 비즈니스 로직 분리
 class DailyListBloc {
@@ -23,10 +23,23 @@ class DailyListBloc {
   getDailyList(DateTime date) async {
     TodoProvider todoProvider = TodoProvider();
 
-    _dailyList = await todoProvider.getListByDate(date.toString());
+    _dailyList = await todoProvider
+        .getListByDate(DateTime(date.year, date.month, date.day).toString());
 
     __dailyListSubject.sink.add(_dailyList);
-    return _dailyList;
+  }
+
+  setDone(int id, int done) {
+    TodoProvider todoProvider = TodoProvider();
+
+    todoProvider.setDoneById(id, done);
+    for (Todo todo in _dailyList) {
+      if (todo.id == id) {
+        todo.done = done;
+      }
+    }
+
+    __dailyListSubject.sink.add(_dailyList);
   }
 
   // insertTodo() async {

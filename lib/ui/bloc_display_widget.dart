@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:laum/components/calendar_body_view.dart';
 import '../bloc/calendar_bloc.dart';
 import '../bloc/daily_list_bloc.dart';
-import '../components/calendar_view.dart';
+import '../components/calendar_title_view.dart';
 import '../components/daily_list_view.dart';
 import 'package:laum/model/todo.dart';
 import '../model/todo_provider.dart';
@@ -17,80 +18,125 @@ class BlocDisplayWidget extends StatefulWidget {
 }
 
 class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
-  // initState() : 위젯이 생성될 때 처음으로 호출되는 메서드
-  // initState()을 통해 CountBloc()을 생성
-  // late List<Todo> initialDailyList;
+  bool textWriteState = false;
+  final _textEditingController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     calendarBloc = CalendarBloc();
     dailyListBloc = DailyListBloc();
-    // setInitialDailyList();
   }
 
-  // dispose(): 위젯이 종료될 때 호출되는 메서드
-  // dispose()을 통해 countBloc을 종료시켜 메모리 누수를 방지한다.
   @override
   void dispose() {
     super.dispose();
     calendarBloc.dispose();
     dailyListBloc.dispose();
+    _textEditingController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         child: Column(
           children: [
             Container(
               child: Column(children: [
-                CalendarView(onTabEvent: onTapDateEvent),
-                DailyListView(),
+                Offstage(
+                  offstage: textWriteState,
+                  child: Container(
+                    // margin: EdgeInsets.only(top: 10),
+                    child: Column(
+                      children: [
+                        CalendarTitleView(),
+                        CalendarBodyView(onTabEvent: onTapDateEvent),
+                      ],
+                    ),
+                    // child: CalendarView(onTabEvent: onTapDateEvent),
+                  ),
+                ),
+                Container(
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    child: SingleChildScrollView(
+                      child: DailyListView(),
+                    )),
               ]),
             )
           ],
         ),
       ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              calendarBloc.addDisplayMonth();
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.remove),
-            onPressed: () {
-              calendarBloc.subtractDisplayMonth();
-            },
-          )
-        ],
+      floatingActionButton: Offstage(
+        offstage: textWriteState,
+        child: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              textWriteState = true;
+            });
+          },
+          backgroundColor: Color(0xffffffff),
+          foregroundColor: Color(0xff000000),
+          child: Icon(Icons.add),
+        ),
       ),
+      bottomSheet: textFieldWidget(),
     );
   }
 
-  void onTapDateEvent(DateTime tabDate) {
+  onTapDateEvent(DateTime tabDate) {
     calendarBloc.setSelectedDate(tabDate);
     dailyListBloc.getDailyList(tabDate);
   }
 
-  // void setInitialDailyList() async {
-  //   TodoProvider todoProvider = TodoProvider();
+  textFieldWidget() {
+    if (textWriteState) {
+      return Container(
+          padding: EdgeInsets.fromLTRB(
+              10, 10, 10, 10 + MediaQuery.of(context).viewInsets.bottom),
+          // decoration: BoxDecoration(
+          //     border: Border.all(color: Color(0xff000000)),
+          //     color: Color(0x11000000)),
+          child: TextField(
+            controller: _textEditingController,
+            autofocus: true,
+            cursorColor: Color(0x55000000),
+            decoration: InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xff000000)),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xff000000)),
+              ),
+            ),
+            onTapOutside: (event) {
+              FocusScope.of(context).unfocus();
+              setState(() {
+                textWriteState = false;
+              });
+            },
+            onEditingComplete: submit,
+          ));
+    }
+    return null;
+  }
 
-  //   final Future<List<Todo>> todos =
-  //       todoProvider.getListByDate(DateTime.now().toString());
-  //   List<Todo> newTodoList = [];
+  submit() {
+    if (_textEditingController.text.trim() == "") return;
 
-  //   for (Todo t in (await todos)) {
-  //     newTodoList.add(t);
-  //   }
-  //   setState(() {
-  //     initialDailyList = newTodoList;
-  //   });
-  // }
+    DateTime selectedDate = calendarBloc.getSelectedDate();
+
+    FocusScope.of(context).unfocus();
+    setState(() {
+      textWriteState = false;
+    });
+    dailyListBloc.insertTodo(Todo(
+        id: 0,
+        date: DateTime(selectedDate.year, selectedDate.month, selectedDate.day),
+        done: 0,
+        data: _textEditingController.text));
+    dailyListBloc.getDailyList(selectedDate);
+  }
 }

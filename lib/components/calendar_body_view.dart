@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import '../ui/bloc_display_widget.dart';
+import 'calendar_day_view.dart';
 
 // count만을 보여주는 코드
-class CalendarBodyWidget extends StatelessWidget {
-  const CalendarBodyWidget({
+class CalendarBodyView extends StatelessWidget {
+  const CalendarBodyView({
     Key? key,
-    required this.displayMonth,
     required this.onTabEvent,
   }) : super(key: key);
 
-  final DateTime displayMonth;
   final Function onTabEvent;
 
   @override
@@ -24,21 +23,17 @@ class CalendarBodyWidget extends StatelessWidget {
       "SAT"
     ];
 
-    int year = displayMonth.year;
-    int month = displayMonth.month;
-
     return Center(
-      // 비동기 처리(StreamBuilder : 변화되는 값을 계속해서 감지)
-      // StreamBuilder를 통해 countBloc.count을 감지
       child: StreamBuilder(
-        stream: calendarBloc
-            .selectedDate, // countBloc.count => _countSubject.stream 을 구독중
+        stream: calendarBloc.displayMonth,
         initialData: DateTime.now(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          // AsyncSnapshot을 통해 들어온 snapshot을 UI에 뿌려준다.
           if (snapshot.hasData) {
             List<Map<String, dynamic>> dates = [];
             List<Row> rows = [];
+
+            int year = snapshot.data.year;
+            int month = snapshot.data.month;
 
             for (int i = 1; i <= DateTime(year, month + 1, 0).day; i++) {
               dates.add({
@@ -80,9 +75,12 @@ class CalendarBodyWidget extends StatelessWidget {
 
             int rowsLength = dates.length ~/ 7;
             for (int i = 0; i < rowsLength; i++) {
-              List<GestureDetector> temps = [];
+              List<Widget> temps = [];
               for (int j = 0; j < 7; j++) {
-                temps.add(dayContainer(dates[i * 7 + j], snapshot.data));
+                temps.add(CalendarDayView(
+                  day: dates[i * 7 + j],
+                  onTabEvent: onTabEvent,
+                ));
               }
               rows.add(Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -113,72 +111,72 @@ class CalendarBodyWidget extends StatelessWidget {
     );
   }
 
-  GestureDetector dayContainer(
-      Map<String, dynamic> dateMap, DateTime selectedDay) {
-    DateTime now = DateTime.now();
-    bool isToday = (now.year == dateMap["year"] &&
-        now.month == dateMap["month"] &&
-        now.day == dateMap["day"]);
-    bool isSelectedDay = (selectedDay.year == dateMap["year"] &&
-        selectedDay.month == dateMap["month"] &&
-        selectedDay.day == dateMap["day"]);
-    int weekday =
-        DateTime(dateMap["year"], dateMap["month"], dateMap["day"]).weekday;
-    Color dayColor = Color(0xff000000);
+  // GestureDetector dayContainer(
+  //     Map<String, dynamic> dateMap, DateTime selectedDay) {
+  //   DateTime now = DateTime.now();
+  //   bool isToday = (now.year == dateMap["year"] &&
+  //       now.month == dateMap["month"] &&
+  //       now.day == dateMap["day"]);
+  //   bool isSelectedDay = (selectedDay.year == dateMap["year"] &&
+  //       selectedDay.month == dateMap["month"] &&
+  //       selectedDay.day == dateMap["day"]);
+  //   int weekday =
+  //       DateTime(dateMap["year"], dateMap["month"], dateMap["day"]).weekday;
+  //   Color dayColor = Color(0xff000000);
 
-    if (weekday == 7 || weekday == 6) {
-      dayColor = Color(0xff808080);
-    } else {
-      dayColor = Color(0xff000000);
-    }
+  //   if (weekday == 7 || weekday == 6) {
+  //     dayColor = Color(0xff808080);
+  //   } else {
+  //     dayColor = Color(0xff000000);
+  //   }
 
-    TextStyle textStyle =
-        TextStyle(color: dayColor, fontSize: 16, fontWeight: FontWeight.w400);
-    BoxDecoration boxDecoration = BoxDecoration(
-      shape: BoxShape.circle,
-      color: Color(0x00000000),
-    );
+  //   TextStyle textStyle =
+  //       TextStyle(color: dayColor, fontSize: 16, fontWeight: FontWeight.w400);
+  //   BoxDecoration boxDecoration = BoxDecoration(
+  //     shape: BoxShape.circle,
+  //     color: Color(0x00000000),
+  //   );
 
-    if (isSelectedDay) {
-      boxDecoration = BoxDecoration(
-          color: Color(0xffffffff),
-          shape: BoxShape.circle,
-          border: Border.all(color: Color(0xff000000)));
-    }
+  //   if (isSelectedDay) {
+  //     boxDecoration = BoxDecoration(
+  //         color: Color(0xffffffff),
+  //         shape: BoxShape.circle,
+  //         border: Border.all(color: Color(0xff000000)));
+  //   }
 
-    if (isToday) {
-      textStyle = TextStyle(
-          color: dayColor,
-          fontSize: 16,
-          fontWeight: FontWeight.w900,
-          decoration: TextDecoration.underline);
-    }
+  //   if (isToday) {
+  //     textStyle = TextStyle(
+  //         color: dayColor,
+  //         fontSize: 16,
+  //         fontWeight: FontWeight.w900,
+  //         decoration: TextDecoration.underline);
+  //   }
 
-    if (!dateMap["inMonth"]) {
-      boxDecoration = BoxDecoration(color: Color(0x00000000));
-      textStyle = TextStyle(color: Color(0x00000000), fontSize: 16);
-    }
+  //   if (!dateMap["inMonth"]) {
+  //     boxDecoration = BoxDecoration(color: Color(0x00000000));
+  //     textStyle = TextStyle(color: Color(0x00000000), fontSize: 16);
+  //   }
 
-    return GestureDetector(
-      onTap: () {
-        if (dateMap["inMonth"]) {
-          onTabEvent(
-              DateTime(dateMap["year"], dateMap["month"], dateMap["day"]));
-        }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        height: 50,
-        width: 50,
-        margin: EdgeInsets.all(1.0),
-        decoration: boxDecoration,
-        child: Text(
-          "${dateMap["day"]}",
-          style: textStyle,
-        ),
-      ),
-    );
-  }
+  //   return GestureDetector(
+  //     onTap: () {
+  //       if (dateMap["inMonth"]) {
+  //         onTabEvent(
+  //             DateTime(dateMap["year"], dateMap["month"], dateMap["day"]));
+  //       }
+  //     },
+  //     child: Container(
+  //       alignment: Alignment.center,
+  //       height: 50,
+  //       width: 50,
+  //       margin: EdgeInsets.all(1.0),
+  //       decoration: boxDecoration,
+  //       child: Text(
+  //         "${dateMap["day"]}",
+  //         style: textStyle,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   List<Container> weekdaysText(List<String> weekdays) {
     List<Container> res = [];

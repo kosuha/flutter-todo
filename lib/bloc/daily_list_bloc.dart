@@ -4,7 +4,6 @@ import '../model/todo_provider.dart';
 
 class DailyListBloc {
   List<Todo> _dailyList = [];
-  bool _textWriteState = false;
 
   DailyListBloc() {
     // print("init DailyListBloc");
@@ -13,10 +12,8 @@ class DailyListBloc {
   }
 
   final StreamController _dailyListSubject = StreamController.broadcast();
-  final StreamController _textWriteStateSubject = StreamController.broadcast();
 
   Stream get dailyList => _dailyListSubject.stream;
-  Stream get textWriteState => _textWriteStateSubject.stream;
 
   initDailyList(DateTime date) async {
     TodoProvider todoProvider = TodoProvider();
@@ -56,11 +53,6 @@ class DailyListBloc {
     _dailyList.add(todo);
     todoProvider.insert(todo);
     _dailyListSubject.sink.add(_dailyList);
-  }
-
-  setTextWriteState(bool newTextWriteState) {
-    _textWriteState = newTextWriteState;
-    _textWriteStateSubject.add(newTextWriteState);
   }
 
   dispose() {

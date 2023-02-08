@@ -23,7 +23,8 @@ class CalendarTitleView extends StatelessWidget {
       "December"
     ];
 
-    return Center(
+    return Container(
+      alignment: Alignment.center,
       child: StreamBuilder(
         stream: calendarBloc.displayMonth,
         initialData: DateTime.now(),

@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
-
 import '../model/todo.dart';
 import '../model/todo_provider.dart';
 

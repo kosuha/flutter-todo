@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:laum/components/calendar_body_view.dart';
 import '../bloc/calendar_bloc.dart';
 import '../bloc/daily_list_bloc.dart';
 import '../components/calendar_title_view.dart';
 import '../components/daily_list_view.dart';
+import '../components/calendar_change_modal_view.dart';
 
 late CalendarBloc calendarBloc;
 late DailyListBloc dailyListBloc;
@@ -53,8 +55,20 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
                     // margin: EdgeInsets.only(top: 10),
                     child: Column(
                       children: [
-                        CalendarTitleView(),
-                        CalendarBodyView(onTabEvent: onTapDateEvent),
+                        GestureDetector(
+                          onTap: calendarChangeButtonEvent,
+                          child: CalendarTitleView(),
+                        ),
+                        GestureDetector(
+                          onHorizontalDragEnd: (DragEndDetails details) {
+                            if (details.primaryVelocity! > 0) {
+                              calendarBloc.subtractDisplayMonth();
+                            } else if (details.primaryVelocity! < 0) {
+                              calendarBloc.addDisplayMonth();
+                            }
+                          },
+                          child: CalendarBodyView(onTabEvent: onTapDateEvent),
+                        ),
                       ],
                     ),
                     // child: CalendarView(onTabEvent: onTapDateEvent),
@@ -98,5 +112,16 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
     setState(() {
       textWriteState = newTextWriteState;
     });
+  }
+
+  void calendarChangeButtonEvent() {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter bottomState) {
+            return CalendarChangeModalView();
+          });
+        });
   }
 }

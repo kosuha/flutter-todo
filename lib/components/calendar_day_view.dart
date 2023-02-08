@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../ui/bloc_display_widget.dart';
 
-// count만을 보여주는 코드
 class CalendarDayView extends StatelessWidget {
   const CalendarDayView({
     Key? key,
@@ -31,6 +30,7 @@ class CalendarDayView extends StatelessWidget {
               now.day == day["day"]);
           int weekday = DateTime(day["year"], day["month"], day["day"]).weekday;
           Color dayColor = Color(0xff000000);
+          Color listInDayColor = Color(0x33000000);
 
           if (weekday == 7 || weekday == 6) {
             dayColor = Color(0xff808080);
@@ -54,15 +54,16 @@ class CalendarDayView extends StatelessWidget {
 
           if (isToday) {
             textStyle = TextStyle(
-                color: dayColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w900,
-                decoration: TextDecoration.underline);
+              color: Color(0xffff0000),
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            );
           }
 
           if (!day["inMonth"]) {
             boxDecoration = BoxDecoration(color: Color(0x00000000));
             textStyle = TextStyle(color: Color(0x00000000), fontSize: 16);
+            listInDayColor = Color(0x00000000);
           }
 
           return GestureDetector(
@@ -72,16 +73,30 @@ class CalendarDayView extends StatelessWidget {
               }
             },
             child: Container(
-              alignment: Alignment.center,
-              height: 50,
-              width: 50,
-              margin: EdgeInsets.all(1.0),
-              decoration: boxDecoration,
-              child: Text(
-                "${day["day"]}",
-                style: textStyle,
-              ),
-            ),
+                alignment: Alignment.center,
+                height: 50,
+                width: 50,
+                margin: EdgeInsets.all(1.0),
+                decoration: boxDecoration,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 5,
+                      height: 5,
+                      decoration: BoxDecoration(color: Color(0x00000000)),
+                    ),
+                    Text(
+                      "${day["day"]}",
+                      style: textStyle,
+                    ),
+                    Container(
+                      width: 5,
+                      height: 5,
+                      decoration: BoxDecoration(color: listInDayColor),
+                    )
+                  ],
+                )),
           );
         });
 

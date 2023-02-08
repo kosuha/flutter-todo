@@ -12,23 +12,28 @@ class CalendarBloc {
   }
 
   // StreamController을 통해 여러 이벤트를 처리
-  final StreamController _displayNameSubject = StreamController.broadcast();
+  final StreamController _displayMonthSubject = StreamController.broadcast();
   final StreamController _selectedDateSubject = StreamController.broadcast();
 
   // count는 _countSubject.stream 을 구독하고 있는 모든 위젯에게 변경된 상태를 알림
-  Stream get displayMonth => _displayNameSubject.stream;
+  Stream get displayMonth => _displayMonthSubject.stream;
   Stream get selectedDate => _selectedDateSubject.stream;
 
   addDisplayMonth() {
     _displayMonth = DateTime(_displayMonth.year, _displayMonth.month + 1, 1);
-    _displayNameSubject.sink.add(_displayMonth);
+    _displayMonthSubject.sink.add(_displayMonth);
     // setDisplayDates();
   }
 
   subtractDisplayMonth() {
     _displayMonth = DateTime(_displayMonth.year, _displayMonth.month - 1, 1);
-    _displayNameSubject.sink.add(_displayMonth);
+    _displayMonthSubject.sink.add(_displayMonth);
     // setDisplayDates();
+  }
+
+  setDisplayMonth(int yearTo, int monthTo) {
+    _displayMonth = DateTime(yearTo, monthTo, 1);
+    _displayMonthSubject.sink.add(_displayMonth);
   }
 
   // setDisplayDates() {
@@ -101,7 +106,7 @@ class CalendarBloc {
   }
 
   dispose() {
-    _displayNameSubject.close();
+    _displayMonthSubject.close();
     _selectedDateSubject.close();
   }
 }

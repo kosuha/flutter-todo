@@ -4,8 +4,6 @@ import '../bloc/calendar_bloc.dart';
 import '../bloc/daily_list_bloc.dart';
 import '../components/calendar_title_view.dart';
 import '../components/daily_list_view.dart';
-import 'package:laum/model/todo.dart';
-import '../model/todo_provider.dart';
 
 late CalendarBloc calendarBloc;
 late DailyListBloc dailyListBloc;
@@ -19,7 +17,6 @@ class BlocDisplayWidget extends StatefulWidget {
 
 class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
   bool textWriteState = false;
-  final _textEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -33,11 +30,15 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
     super.dispose();
     calendarBloc.dispose();
     dailyListBloc.dispose();
-    _textEditingController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    double dailyListContainerHeight = MediaQuery.of(context).size.height * 0.5;
+    if (textWriteState) {
+      dailyListContainerHeight = MediaQuery.of(context).size.height -
+          MediaQuery.of(context).padding.top;
+    }
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -60,10 +61,13 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
                   ),
                 ),
                 Container(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    child: SingleChildScrollView(
-                      child: DailyListView(),
-                    )),
+                  height: dailyListContainerHeight,
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+                  child: DailyListView(
+                      textWriteState: textWriteState,
+                      setTextWriteState: setTextWriteState),
+                ),
               ]),
             )
           ],
@@ -82,61 +86,17 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
           child: Icon(Icons.add),
         ),
       ),
-      bottomSheet: textFieldWidget(),
     );
   }
 
   onTapDateEvent(DateTime tabDate) {
     calendarBloc.setSelectedDate(tabDate);
-    dailyListBloc.getDailyList(tabDate);
+    dailyListBloc.setDailyList(tabDate);
   }
 
-  textFieldWidget() {
-    if (textWriteState) {
-      return Container(
-          padding: EdgeInsets.fromLTRB(
-              10, 10, 10, 10 + MediaQuery.of(context).viewInsets.bottom),
-          // decoration: BoxDecoration(
-          //     border: Border.all(color: Color(0xff000000)),
-          //     color: Color(0x11000000)),
-          child: TextField(
-            controller: _textEditingController,
-            autofocus: true,
-            cursorColor: Color(0x55000000),
-            decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Color(0xff000000)),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Color(0xff000000)),
-              ),
-            ),
-            onTapOutside: (event) {
-              FocusScope.of(context).unfocus();
-              setState(() {
-                textWriteState = false;
-              });
-            },
-            onEditingComplete: submit,
-          ));
-    }
-    return null;
-  }
-
-  submit() {
-    if (_textEditingController.text.trim() == "") return;
-
-    DateTime selectedDate = calendarBloc.getSelectedDate();
-
-    FocusScope.of(context).unfocus();
+  setTextWriteState(bool newTextWriteState) {
     setState(() {
-      textWriteState = false;
+      textWriteState = newTextWriteState;
     });
-    dailyListBloc.insertTodo(Todo(
-        id: 0,
-        date: DateTime(selectedDate.year, selectedDate.month, selectedDate.day),
-        done: 0,
-        data: _textEditingController.text));
-    dailyListBloc.getDailyList(selectedDate);
   }
 }

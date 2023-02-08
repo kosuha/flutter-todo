@@ -1,0 +1,94 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import '../ui/bloc_display_widget.dart';
+import '../model/todo.dart';
+
+class TextInputView extends StatefulWidget {
+  const TextInputView({
+    required this.dailyListScrollController,
+    required this.setTextWriteState,
+    Key? key,
+  }) : super(key: key);
+
+  final ScrollController dailyListScrollController;
+  final Function setTextWriteState;
+
+  @override
+  _TextInputViewState createState() => _TextInputViewState();
+}
+
+class _TextInputViewState extends State<TextInputView> {
+  final _textEditingController = TextEditingController();
+  final _textFieldFocus = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _textEditingController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Checkbox(
+            activeColor: Color(0x00000000),
+            checkColor: Color(0xff00ff00),
+            side: BorderSide(color: Color(0xff000000)),
+            value: false,
+            onChanged: null),
+        Expanded(
+          child: Container(
+              margin: EdgeInsets.only(right: 10),
+              child: TextField(
+                focusNode: _textFieldFocus,
+                controller: _textEditingController,
+                keyboardType: TextInputType.text,
+                autocorrect: false,
+                enableSuggestions: false,
+                autofocus: true,
+                cursorColor: Color(0x55000000),
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xff000000)),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xff000000)),
+                  ),
+                ),
+                onTapOutside: (event) {
+                  FocusScope.of(context).unfocus();
+                  widget.setTextWriteState(false);
+                },
+                onEditingComplete: submitEvent,
+              )),
+        ),
+      ],
+    );
+  }
+
+  submitEvent() {
+    if (_textEditingController.text.trim() == "") return;
+    DateTime selectedDate = calendarBloc.getSelectedDate();
+
+    dailyListBloc.insertTodo(Todo(
+        id: 0,
+        date: DateTime(selectedDate.year, selectedDate.month, selectedDate.day),
+        done: 0,
+        data: _textEditingController.text));
+
+    _textEditingController.text = "";
+
+    Timer(Duration(milliseconds: 100), () {
+      widget.dailyListScrollController.animateTo(
+          widget.dailyListScrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.ease);
+    });
+  }
+}

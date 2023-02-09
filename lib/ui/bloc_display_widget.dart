@@ -37,7 +37,30 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
   @override
   Widget build(BuildContext context) {
     double dailyListContainerHeight = MediaQuery.of(context).size.height * 0.5;
+    Container monthContainer = Container(
+      // margin: EdgeInsets.only(top: 10),
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: calendarChangeButtonEvent,
+            child: CalendarTitleView(),
+          ),
+          GestureDetector(
+            onHorizontalDragEnd: (DragEndDetails details) {
+              if (details.primaryVelocity! > 0) {
+                calendarBloc.subtractDisplayMonth();
+              } else if (details.primaryVelocity! < 0) {
+                calendarBloc.addDisplayMonth();
+              }
+            },
+            child: CalendarBodyView(onTabEvent: onTapDateEvent),
+          ),
+        ],
+      ),
+      // child: CalendarView(onTabEvent: onTapDateEvent),
+    );
     if (textWriteState) {
+      monthContainer = Container();
       dailyListContainerHeight = MediaQuery.of(context).size.height -
           MediaQuery.of(context).padding.top;
     }
@@ -49,31 +72,7 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
           children: [
             Container(
               child: Column(children: [
-                Offstage(
-                  offstage: textWriteState,
-                  child: Container(
-                    // margin: EdgeInsets.only(top: 10),
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                          onTap: calendarChangeButtonEvent,
-                          child: CalendarTitleView(),
-                        ),
-                        GestureDetector(
-                          onHorizontalDragEnd: (DragEndDetails details) {
-                            if (details.primaryVelocity! > 0) {
-                              calendarBloc.subtractDisplayMonth();
-                            } else if (details.primaryVelocity! < 0) {
-                              calendarBloc.addDisplayMonth();
-                            }
-                          },
-                          child: CalendarBodyView(onTabEvent: onTapDateEvent),
-                        ),
-                      ],
-                    ),
-                    // child: CalendarView(onTabEvent: onTapDateEvent),
-                  ),
-                ),
+                monthContainer,
                 Container(
                   height: dailyListContainerHeight,
                   padding: EdgeInsets.only(

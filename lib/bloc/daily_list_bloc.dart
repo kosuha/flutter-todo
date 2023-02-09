@@ -22,6 +22,13 @@ class DailyListBloc {
     _dailyListSubject.sink.add(_dailyList);
   }
 
+  isDailyList(DateTime date) async {
+    TodoProvider todoProvider = TodoProvider();
+
+    List<Todo> temp = await todoProvider.getListByDay(date);
+    return temp.isNotEmpty;
+  }
+
   getDailyList() {
     return _dailyList;
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../ui/bloc_display_widget.dart';
+import 'calendar_day_dot_view.dart';
 
 class CalendarDayView extends StatelessWidget {
   const CalendarDayView({
@@ -30,7 +31,6 @@ class CalendarDayView extends StatelessWidget {
               now.day == day["day"]);
           int weekday = DateTime(day["year"], day["month"], day["day"]).weekday;
           Color dayColor = Color(0xff000000);
-          Color listInDayColor = Color(0x33000000);
 
           if (weekday == 7 || weekday == 6) {
             dayColor = Color(0xff808080);
@@ -63,7 +63,6 @@ class CalendarDayView extends StatelessWidget {
           if (!day["inMonth"]) {
             boxDecoration = BoxDecoration(color: Color(0x00000000));
             textStyle = TextStyle(color: Color(0x00000000), fontSize: 16);
-            listInDayColor = Color(0x00000000);
           }
 
           return GestureDetector(
@@ -90,11 +89,7 @@ class CalendarDayView extends StatelessWidget {
                       "${day["day"]}",
                       style: textStyle,
                     ),
-                    Container(
-                      width: 5,
-                      height: 5,
-                      decoration: BoxDecoration(color: listInDayColor),
-                    )
+                    CalendarDayDotView(day: day),
                   ],
                 )),
           );

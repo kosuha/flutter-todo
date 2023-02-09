@@ -76,7 +76,7 @@ class _TextInputViewState extends State<TextInputView> {
     if (_textEditingController.text.trim() == "") return;
     DateTime selectedDate = calendarBloc.getSelectedDate();
 
-    dailyListBloc.insertTodo(Todo(
+    calendarBloc.insertTodo(Todo(
         id: 0,
         date: DateTime(selectedDate.year, selectedDate.month, selectedDate.day),
         done: 0,

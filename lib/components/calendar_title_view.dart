@@ -2,9 +2,12 @@ import '../ui/bloc_display_widget.dart';
 import 'package:flutter/material.dart';
 
 class CalendarTitleView extends StatelessWidget {
-  const CalendarTitleView({
+  CalendarTitleView({
+    required this.displayMonth,
     Key? key,
   }) : super(key: key);
+
+  final Map displayMonth;
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +27,10 @@ class CalendarTitleView extends StatelessWidget {
     ];
 
     return Container(
-      alignment: Alignment.center,
-      child: StreamBuilder(
-        stream: calendarBloc.displayMonth,
-        initialData: DateTime.now(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            return Text(
-              "${monthStrings[snapshot.data.month - 1]}, ${snapshot.data.year}",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
-            );
-          }
-          return CircularProgressIndicator();
-        },
-      ),
-    );
+        alignment: Alignment.center,
+        child: Text(
+          "${monthStrings[displayMonth["date"].month - 1]}, ${displayMonth["date"].year}",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+        ));
   }
 }

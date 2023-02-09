@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:laum/model/todo.dart';
 import '../ui/bloc_display_widget.dart';
 
 class CalendarDayDotView extends StatefulWidget {
   const CalendarDayDotView({
     Key? key,
-    required this.day,
+    required this.dailyList,
   }) : super(key: key);
 
-  final Map day;
+  final List<Todo> dailyList;
 
   @override
   _CalendarDayDotViewState createState() => _CalendarDayDotViewState();
@@ -19,7 +20,7 @@ class _CalendarDayDotViewState extends State<CalendarDayDotView> {
   @override
   void initState() {
     super.initState();
-    setIsDailyList();
+    // setIsDailyList();
   }
 
   @override
@@ -30,8 +31,8 @@ class _CalendarDayDotViewState extends State<CalendarDayDotView> {
   @override
   Widget build(BuildContext context) {
     Color listInDayColor = Color(0x00000000);
-
-    if (widget.day["inMonth"] && isList) {
+    print(widget.dailyList);
+    if (widget.dailyList.isNotEmpty) {
       listInDayColor = Color(0x33000000);
     }
     return Container(
@@ -41,11 +42,11 @@ class _CalendarDayDotViewState extends State<CalendarDayDotView> {
     );
   }
 
-  setIsDailyList() async {
-    bool temp = await dailyListBloc.isDailyList(
-        DateTime(widget.day["year"], widget.day["month"], widget.day["day"]));
-    setState(() {
-      isList = temp;
-    });
-  }
+  // setIsDailyList() async {
+  //   bool temp = await dailyListBloc.isDailyList(
+  //       DateTime(widget.day["year"], widget.day["month"], widget.day["day"]));
+  //   setState(() {
+  //     isList = temp;
+  //   });
+  // }
 }

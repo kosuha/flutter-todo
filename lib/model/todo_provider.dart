@@ -57,10 +57,34 @@ class TodoProvider {
     return list;
   }
 
+  Future<List<Todo>> getListByMonth(DateTime date) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+        'SELECT * FROM $tableName WHERE year = ? AND month = ?',
+        [date.year, date.month, date.day]);
+    if (maps.isEmpty) return [];
+    List<Todo> list = [];
+    for (var i = 0; i < maps.length; i++) {
+      list.add(Todo(
+        id: maps[i]["id"],
+        date: DateTime(maps[i]["year"], maps[i]["month"], maps[i]["day"]),
+        done: maps[i]["done"],
+        data: maps[i]["data"],
+      ));
+    }
+    return list;
+  }
+
   Future<void> setDoneById(int id, int checked) async {
     final db = await database;
 
     await db
         .rawQuery('UPDATE $tableName SET done = $checked WHERE id = ?', [id]);
+  }
+
+  deleteTodoById(int id) async {
+    final db = await database;
+
+    await db.rawQuery('DELETE FROM $tableName WHERE id = ?', [id]);
   }
 }

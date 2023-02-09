@@ -163,7 +163,6 @@ class MonthBodyWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        print("object");
         setDate(dateMap["year"], dateMap["month"], dateMap["day"]);
       },
       child: Container(

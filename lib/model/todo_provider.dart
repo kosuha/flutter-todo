@@ -1,4 +1,3 @@
-
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'todo.dart';
@@ -24,7 +23,7 @@ class TodoProvider {
       version: 1,
       onCreate: (Database db, int version) async {
         await db.execute(
-          "CREATE TABLE IF NOT EXISTS $tableName(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, done INTEGER, data TEXT)",
+          "CREATE TABLE IF NOT EXISTS $tableName(id INTEGER PRIMARY KEY AUTOINCREMENT, year INTEGER, month INTEGER, day INTEGER, done INTEGER, data TEXT)",
         );
       },
       onUpgrade: (db, oldVersion, newVersion) {},
@@ -40,16 +39,35 @@ class TodoProvider {
     );
   }
 
-  Future<List<Todo>> getListByDate(String date) async {
+  Future<List<Todo>> getListByDay(DateTime date) async {
     final db = await database;
-    final List<Map<String, dynamic>> maps =
-        await db.rawQuery('SELECT * FROM $tableName WHERE date = ?', [date]);
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+        'SELECT * FROM $tableName WHERE year = ? AND month = ? AND day = ?',
+        [date.year, date.month, date.day]);
     if (maps.isEmpty) return [];
     List<Todo> list = [];
     for (var i = 0; i < maps.length; i++) {
       list.add(Todo(
         id: maps[i]["id"],
-        date: DateTime.parse(maps[i]["date"]),
+        date: DateTime(maps[i]["year"], maps[i]["month"], maps[i]["day"]),
+        done: maps[i]["done"],
+        data: maps[i]["data"],
+      ));
+    }
+    return list;
+  }
+
+  Future<List<Todo>> getListByMonth(DateTime date) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+        'SELECT * FROM $tableName WHERE year = ? AND month = ?',
+        [date.year, date.month]);
+    if (maps.isEmpty) return [];
+    List<Todo> list = [];
+    for (var i = 0; i < maps.length; i++) {
+      list.add(Todo(
+        id: maps[i]["id"],
+        date: DateTime(maps[i]["year"], maps[i]["month"], maps[i]["day"]),
         done: maps[i]["done"],
         data: maps[i]["data"],
       ));

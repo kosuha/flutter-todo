@@ -81,8 +81,7 @@ class DailyListView extends StatelessWidget {
     TodoProvider todoProvider = TodoProvider();
     DateTime now = DateTime.now();
 
-    final List<Todo> todos = await todoProvider
-        .getListByDate(DateTime(now.year, now.month, now.day).toString());
+    final List<Todo> todos = await todoProvider.getListByDay(now);
     return todos;
   }
 

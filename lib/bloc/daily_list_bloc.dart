@@ -18,8 +18,7 @@ class DailyListBloc {
   initDailyList(DateTime date) async {
     TodoProvider todoProvider = TodoProvider();
 
-    _dailyList = await todoProvider
-        .getListByDate(DateTime(date.year, date.month, date.day).toString());
+    _dailyList = await todoProvider.getListByDay(date);
     _dailyListSubject.sink.add(_dailyList);
   }
 
@@ -30,8 +29,7 @@ class DailyListBloc {
   setDailyList(DateTime date) async {
     TodoProvider todoProvider = TodoProvider();
 
-    _dailyList = await todoProvider
-        .getListByDate(DateTime(date.year, date.month, date.day).toString());
+    _dailyList = await todoProvider.getListByDay(date);
     _dailyListSubject.sink.add(_dailyList);
   }
 

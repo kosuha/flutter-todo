@@ -13,7 +13,9 @@ class Todo {
 
   Map<String, dynamic> toMap() {
     return {
-      'date': date.toString(),
+      'year': date.year,
+      'month': date.month,
+      'day': date.day,
       'done': done,
       'data': data,
     };

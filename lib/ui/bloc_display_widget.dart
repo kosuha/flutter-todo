@@ -36,6 +36,7 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
     Constant.init(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: Color(0xff252525),
       body: StreamBuilder(
         stream: calendarBloc.displayMonth,
         builder: (context, snapshot) {
@@ -44,7 +45,7 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
             Container monthContainer = Container(
               height: 410 / 797 * Constant.kHeight,
               decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Color(0x22000000)))),
+                  border: Border(bottom: BorderSide(color: Color(0x22ffffff)))),
               child: Column(
                 children: [
                   Container(

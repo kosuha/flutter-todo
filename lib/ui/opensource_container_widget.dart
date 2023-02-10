@@ -18,6 +18,7 @@ class OpensourceContainerWidget extends StatelessWidget {
       child: Text(
         name,
         style: TextStyle(
+          color: Color(0xffffffff),
           fontSize: 18 / 797 * Constant.kHeight,
         ),
       ),

@@ -9,18 +9,19 @@ class ContactWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color(0xff252525),
         appBar: AppBar(
           backgroundColor: Color(0x00ffffff),
           elevation: 0,
           title: Text(
             "문의하기",
             style: TextStyle(
-                color: Color(0xff000000), fontWeight: FontWeight.w700),
+                color: Color(0xffffffff), fontWeight: FontWeight.w700),
           ),
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back_ios,
-                color: Color(0xff333333),
+                color: Color(0xff777777),
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -38,7 +39,7 @@ class ContactWidget extends StatelessWidget {
                 height: 60 / 797 * Constant.kHeight,
                 decoration: BoxDecoration(
                     border:
-                        Border(bottom: BorderSide(color: Color(0x11000000)))),
+                        Border(bottom: BorderSide(color: Color(0x11ffffff)))),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,12 +47,14 @@ class ContactWidget extends StatelessWidget {
                     Text(
                       "E-mail",
                       style: TextStyle(
+                        color: Color(0xffffffff),
                         fontSize: 18 / 797 * Constant.kHeight,
                       ),
                     ),
                     Text(
                       "studio.laum@gmail.com",
                       style: TextStyle(
+                        color: Color(0xffffffff),
                         fontSize: 16 / 797 * Constant.kHeight,
                       ),
                     ),

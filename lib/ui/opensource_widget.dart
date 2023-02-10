@@ -6,18 +6,19 @@ class OpensourceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color(0xff252525),
         appBar: AppBar(
           backgroundColor: Color(0x00ffffff),
           elevation: 0,
           title: Text(
             "라이선스",
             style: TextStyle(
-                color: Color(0xff000000), fontWeight: FontWeight.w700),
+                color: Color(0xffffffff), fontWeight: FontWeight.w700),
           ),
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back_ios,
-                color: Color(0xff333333),
+                color: Color(0xff777777),
               ),
               onPressed: () {
                 Navigator.pop(context);

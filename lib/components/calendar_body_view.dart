@@ -87,7 +87,7 @@ class CalendarBodyView extends StatelessWidget {
     return Flex(direction: Axis.vertical, children: [
       Container(
         decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Color(0x22000000)))),
+            border: Border(bottom: BorderSide(color: Color(0x22ffffff)))),
         child: Flex(
           direction: Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -103,13 +103,13 @@ class CalendarBodyView extends StatelessWidget {
 
   List<Container> weekdaysText(List<String> weekdays) {
     List<Container> res = [];
-    Color dayColor = Color(0xff000000);
+    Color dayColor = Color(0xffffffff);
 
     for (int i = 0; i < weekdays.length; i++) {
       if (i == 0 || i == 6) {
         dayColor = Color(0xff808080);
       } else {
-        dayColor = Color(0xff000000);
+        dayColor = Color(0xffffffff);
       }
       res.add(Container(
         alignment: Alignment.center,

@@ -38,9 +38,9 @@ class _TextInputViewState extends State<TextInputView> {
     return Row(
       children: [
         Checkbox(
-            activeColor: Color(0x00000000),
+            activeColor: Color(0x00ffffff),
             checkColor: Color(0xff00ff00),
-            side: BorderSide(color: Color(0xff000000)),
+            side: BorderSide(color: Color(0xffffffff)),
             value: false,
             onChanged: null),
         Expanded(
@@ -49,18 +49,20 @@ class _TextInputViewState extends State<TextInputView> {
               child: TextField(
                 focusNode: _textFieldFocus,
                 controller: _textEditingController,
-                style: TextStyle(fontSize: (16 / 797 * Constant.kHeight)),
+                style: TextStyle(
+                    fontSize: (18 / 797 * Constant.kHeight),
+                    color: Color(0xffffffff)),
                 keyboardType: TextInputType.text,
                 autocorrect: false,
                 enableSuggestions: false,
                 autofocus: true,
-                cursorColor: Color(0x55000000),
+                cursorColor: Color(0x55ffffff),
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff000000)),
+                    borderSide: BorderSide(color: Color(0xffffffff)),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff000000)),
+                    borderSide: BorderSide(color: Color(0xffffffff)),
                   ),
                 ),
                 onTapOutside: (event) {

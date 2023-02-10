@@ -35,6 +35,7 @@ class CalendarTitleView extends StatelessWidget {
         child: Text(
           "${monthStrings[displayMonth["selectedDate"].month - 1].substring(0, 3).toUpperCase()} ${displayMonth["selectedDate"].day}, ${displayMonth["selectedDate"].year}",
           style: TextStyle(
+              color: Color(0xffffffff),
               letterSpacing: 0.05,
               fontSize: (24 / 797 * Constant.kHeight),
               fontWeight: FontWeight.w900),

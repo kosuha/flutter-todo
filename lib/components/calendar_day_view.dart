@@ -38,12 +38,12 @@ class CalendarDayView extends StatelessWidget {
         now.month == day["month"] &&
         now.day == day["day"]);
     int weekday = DateTime(day["year"], day["month"], day["day"]).weekday;
-    Color dayColor = Color(0xff000000);
+    Color dayColor = Color(0xffffffff);
 
     if (weekday == 7 || weekday == 6) {
       dayColor = Color(0xff808080);
     } else {
-      dayColor = Color(0xff000000);
+      dayColor = Color(0xffffffff);
     }
 
     TextStyle textStyle = TextStyle(
@@ -52,28 +52,28 @@ class CalendarDayView extends StatelessWidget {
         fontWeight: FontWeight.w400);
     BoxDecoration boxDecoration = BoxDecoration(
       shape: BoxShape.circle,
-      color: Color(0x00000000),
+      color: Color(0x00ffffff),
     );
 
     if (isSelectedDay) {
       boxDecoration = BoxDecoration(
-          color: Color(0xffffffff),
+          color: Color(0x00ffffff),
           shape: BoxShape.circle,
-          border: Border.all(color: Color(0xff000000)));
+          border: Border.all(color: Color(0xffffffff)));
     }
 
     if (isToday) {
       textStyle = TextStyle(
-        color: Color(0xff009900),
+        color: Color(0xff00ff00),
         fontSize: (16 / 797 * Constant.kHeight),
         fontWeight: FontWeight.w700,
       );
     }
 
     if (!day["inMonth"]) {
-      boxDecoration = BoxDecoration(color: Color(0x00000000));
+      boxDecoration = BoxDecoration(color: Color(0x00ffffff));
       textStyle = TextStyle(
-          color: Color(0x00000000), fontSize: (16 / 797 * Constant.kHeight));
+          color: Color(0x00ffffff), fontSize: (16 / 797 * Constant.kHeight));
     }
 
     return GestureDetector(
@@ -94,7 +94,7 @@ class CalendarDayView extends StatelessWidget {
               Container(
                 width: (5 / 797 * Constant.kHeight),
                 height: (5 / 797 * Constant.kHeight),
-                decoration: BoxDecoration(color: Color(0x00000000)),
+                decoration: BoxDecoration(color: Color(0x00ffffff)),
               ),
               Text(
                 "${day["day"]}",

@@ -29,11 +29,12 @@ class _CalendarDayDotViewState extends State<CalendarDayDotView> {
 
   @override
   Widget build(BuildContext context) {
-    Color listInDayColor = Color(0x00000000);
+    Color listInDayColor = Color(0x00ffffff);
     if (widget.dailyList.isNotEmpty) {
-      listInDayColor = Color(0x33000000);
+      listInDayColor = Color(0xffffffff);
     }
     return Container(
+      margin: EdgeInsets.only(top: 3),
       width: (5 / 797 * Constant.kHeight),
       height: (5 / 797 * Constant.kHeight),
       decoration: BoxDecoration(color: listInDayColor),

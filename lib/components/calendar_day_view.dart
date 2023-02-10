@@ -64,7 +64,7 @@ class CalendarDayView extends StatelessWidget {
 
     if (isToday) {
       textStyle = TextStyle(
-        color: Color(0xffff0000),
+        color: Color(0xff009900),
         fontSize: (16 / 797 * Constant.kHeight),
         fontWeight: FontWeight.w700,
       );

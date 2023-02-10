@@ -5,6 +5,7 @@ import '../components/calendar_title_view.dart';
 import '../components/daily_list_view.dart';
 import '../components/calendar_change_modal_view.dart';
 import '../bloc/constants.dart';
+import 'setting_widget.dart';
 
 late CalendarBloc calendarBloc;
 
@@ -46,9 +47,30 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
                   border: Border(bottom: BorderSide(color: Color(0x22000000)))),
               child: Column(
                 children: [
-                  GestureDetector(
-                    onTap: calendarChangeButtonEvent,
-                    child: CalendarTitleView(),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 15 / 797 * Constant.kHeight),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: calendarChangeButtonEvent,
+                          child: CalendarTitleView(),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SettingWidget(),
+                                  ));
+                            },
+                            icon: Icon(
+                              Icons.settings,
+                              color: Color(0xff777777),
+                            ))
+                      ],
+                    ),
                   ),
                   GestureDetector(
                     onHorizontalDragEnd: (DragEndDetails details) {

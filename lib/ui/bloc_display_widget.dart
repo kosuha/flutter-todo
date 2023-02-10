@@ -69,10 +69,12 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
             }
 
             return Container(
+              alignment: Alignment.center,
               margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
               child: Column(
                 children: [
                   Container(
+                    width: (390 / 797 * Constant.kHeight),
                     child: Column(children: [
                       monthContainer,
                       Container(
@@ -141,6 +143,5 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
 /*
   TODO: 390 844(797)
 
-  달력 빈공간 점 표시 버그
-  4월 1일 리스트 실종 
+
 */

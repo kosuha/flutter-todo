@@ -19,6 +19,7 @@ class DailyTodoView extends StatefulWidget {
 }
 
 class _DailyTodoViewState extends State<DailyTodoView> {
+  final _textEditingController = TextEditingController();
   bool optionState = false;
 
   @override
@@ -51,6 +52,7 @@ class _DailyTodoViewState extends State<DailyTodoView> {
     }
     return Container(
         margin: EdgeInsets.symmetric(horizontal: 1),
+        padding: EdgeInsets.all(5 / 797 * Constant.kHeight),
         decoration: BoxDecoration(
             border: Border.all(color: borderColor),
             borderRadius: BorderRadius.circular(10 / 797 * Constant.kHeight)),
@@ -73,7 +75,48 @@ class _DailyTodoViewState extends State<DailyTodoView> {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-                  print("edit");
+                  _textEditingController.text = widget.todo.data;
+                  showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor: Color(0xffffffff),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                        top: Radius.circular((30 / 797 * Constant.kHeight)),
+                      )),
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: Container(
+                              padding:
+                                  EdgeInsets.all((10 / 797 * Constant.kHeight)),
+                              child: TextField(
+                                controller: _textEditingController,
+                                keyboardType: TextInputType.text,
+                                autocorrect: false,
+                                enableSuggestions: false,
+                                autofocus: true,
+                                cursorColor: Color(0x55000000),
+                                decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xff000000)),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xff000000)),
+                                  ),
+                                ),
+                                onEditingComplete: () {
+                                  if (_textEditingController.text.trim() == "")
+                                    return;
+                                  submit();
+                                  Navigator.pop(context);
+                                },
+                              )),
+                        );
+                      });
                 },
                 child: Container(
                     margin:
@@ -86,6 +129,11 @@ class _DailyTodoViewState extends State<DailyTodoView> {
             ),
           ],
         ));
+  }
+
+  submit() {
+    widget.todo.data = _textEditingController.text;
+    calendarBloc.editTodo(widget.todo);
   }
 
   bool isTrue(int n) {

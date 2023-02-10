@@ -84,6 +84,14 @@ class TodoProvider {
         'UPDATE $tableName SET done = $checked WHERE since = ?', [since]);
   }
 
+  Future<void> editTodo(Todo todo) async {
+    final db = await database;
+
+    await db.rawQuery(
+        'UPDATE $tableName SET data = "${todo.data}" WHERE since = ?',
+        [todo.since]);
+  }
+
   deleteTodoBySince(int since) async {
     final db = await database;
 

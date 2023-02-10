@@ -129,6 +129,19 @@ class CalendarBloc {
     _displayMonthSubject.sink.add(_displayMonth);
   }
 
+  editTodo(Todo editedTodo) {
+    TodoProvider todoProvider = TodoProvider();
+
+    todoProvider.editTodo(editedTodo);
+    for (Todo todo in _displayMonth["list"]) {
+      if (todo.since == editedTodo.since) {
+        todo = editedTodo;
+        break;
+      }
+    }
+    _displayMonthSubject.sink.add(_displayMonth);
+  }
+
   dispose() {
     _displayMonthSubject.close();
   }

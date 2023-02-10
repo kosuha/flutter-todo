@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import '../ui/bloc_display_widget.dart';
 import '../model/todo.dart';
 import '../model/todo_provider.dart';
 import 'text_input_view.dart';
 import 'daily_todo_view.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import '../bloc/constants.dart';
 
 class DailyListView extends StatelessWidget {
   const DailyListView({
@@ -30,7 +28,6 @@ class DailyListView extends StatelessWidget {
       if (todo.date.year == displayMonth["selectedDate"].year &&
           todo.date.month == displayMonth["selectedDate"].month &&
           todo.date.day == displayMonth["selectedDate"].day) {
-        print("?");
         listTodo.add(Slidable(
           key: Key("${DateTime.now().microsecondsSinceEpoch} ${keyInt++}"),
           endActionPane: ActionPane(

@@ -18,7 +18,6 @@ class CalendarBloc {
     TodoProvider todoProvider = TodoProvider();
 
     _displayMonth = {
-      "date": DateTime(now.year, now.month, 1),
       "selectedDate": DateTime(now.year, now.month, now.day),
       "list": <Todo>[],
     };
@@ -27,20 +26,65 @@ class CalendarBloc {
     _displayMonthSubject.sink.add(_displayMonth);
   }
 
-  addDisplayMonth() {
-    _displayMonth["date"] = DateTime(
-        _displayMonth["date"].year, _displayMonth["date"].month + 1, 1);
+  addDisplayMonth() async {
+    TodoProvider todoProvider = TodoProvider();
+    DateTime now = DateTime.now();
+
+    _displayMonth["selectedDate"] = DateTime(_displayMonth["selectedDate"].year,
+        _displayMonth["selectedDate"].month + 1, 1);
+
+    if (now.year == _displayMonth["selectedDate"].year &&
+        now.month == _displayMonth["selectedDate"].month) {
+      _displayMonth["selectedDate"] = DateTime(
+          _displayMonth["selectedDate"].year,
+          _displayMonth["selectedDate"].month,
+          now.day);
+    }
+
+    _displayMonth["list"] = await todoProvider.getListByMonth(DateTime(
+        _displayMonth["selectedDate"].year,
+        _displayMonth["selectedDate"].month,
+        _displayMonth["selectedDate"].day));
+
     _displayMonthSubject.sink.add(_displayMonth);
   }
 
-  subtractDisplayMonth() {
-    _displayMonth["date"] = DateTime(
-        _displayMonth["date"].year, _displayMonth["date"].month - 1, 1);
+  subtractDisplayMonth() async {
+    TodoProvider todoProvider = TodoProvider();
+    DateTime now = DateTime.now();
+    _displayMonth["selectedDate"] = DateTime(_displayMonth["selectedDate"].year,
+        _displayMonth["selectedDate"].month - 1, 1);
+
+    if (now.year == _displayMonth["selectedDate"].year &&
+        now.month == _displayMonth["selectedDate"].month) {
+      _displayMonth["selectedDate"] = DateTime(
+          _displayMonth["selectedDate"].year,
+          _displayMonth["selectedDate"].month,
+          now.day);
+    }
+    _displayMonth["list"] = await todoProvider.getListByMonth(DateTime(
+        _displayMonth["selectedDate"].year,
+        _displayMonth["selectedDate"].month,
+        _displayMonth["selectedDate"].day));
+
     _displayMonthSubject.sink.add(_displayMonth);
   }
 
-  setDisplayMonth(int yearTo, int monthTo) {
-    _displayMonth["date"] = DateTime(yearTo, monthTo, 1);
+  setDisplayMonth(int yearTo, int monthTo) async {
+    TodoProvider todoProvider = TodoProvider();
+    DateTime now = DateTime.now();
+
+    if (now.year == yearTo && now.month == monthTo) {
+      _displayMonth["selectedDate"] = DateTime(yearTo, monthTo, now.day);
+    } else {
+      _displayMonth["selectedDate"] = DateTime(yearTo, monthTo, 1);
+    }
+
+    _displayMonth["list"] = await todoProvider.getListByMonth(DateTime(
+        _displayMonth["selectedDate"].year,
+        _displayMonth["selectedDate"].month,
+        _displayMonth["selectedDate"].day));
+
     _displayMonthSubject.sink.add(_displayMonth);
   }
 
@@ -48,24 +92,28 @@ class CalendarBloc {
     return _displayMonth["selectedDate"];
   }
 
+  getDisplayMonth() {
+    return _displayMonth;
+  }
+
   setSelectedDate(DateTime date) {
     _displayMonth["selectedDate"] = DateTime(date.year, date.month, date.day);
     _displayMonthSubject.sink.add(_displayMonth);
   }
 
-  deleteTodo(int id) {
+  deleteTodo(int since) {
     TodoProvider todoProvider = TodoProvider();
 
-    todoProvider.deleteTodoById(id);
-    _displayMonth["list"].removeWhere((todo) => todo.id == id);
+    todoProvider.deleteTodoBySince(since);
+    _displayMonth["list"].removeWhere((todo) => todo.since == since);
     _displayMonthSubject.sink.add(_displayMonth);
   }
 
-  setDone(int id, int done) {
+  setDone(int since, int done) {
     TodoProvider todoProvider = TodoProvider();
-    todoProvider.setDoneById(id, done);
+    todoProvider.setDoneBySince(since, done);
     for (Todo todo in _displayMonth["list"]) {
-      if (todo.id == id) {
+      if (todo.since == since) {
         todo.done = done;
         break;
       }

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import '../ui/bloc_display_widget.dart';
+import 'package:laum/ui/bloc_display_widget.dart';
 import 'calendar_day_view.dart';
+import '../bloc/constants.dart';
 
-// count만을 보여주는 코드
 class CalendarBodyView extends StatelessWidget {
   const CalendarBodyView({
     Key? key,
-    required this.displayMonth,
+    // required this.displayMonth,
     required this.onTapEvent,
   }) : super(key: key);
 
-  final Map displayMonth;
+  // final Map displayMonth;
   final Function onTapEvent;
 
   @override
@@ -25,11 +25,13 @@ class CalendarBodyView extends StatelessWidget {
       "SAT"
     ];
 
+    Map displayMonth = calendarBloc.getDisplayMonth();
+
     List<Map<String, dynamic>> dates = [];
     List<Row> rows = [];
 
-    int year = displayMonth["date"].year;
-    int month = displayMonth["date"].month;
+    int year = displayMonth["selectedDate"].year;
+    int month = displayMonth["selectedDate"].month;
 
     for (int i = 1; i <= DateTime(year, month + 1, 0).day; i++) {
       dates.add({
@@ -74,7 +76,6 @@ class CalendarBodyView extends StatelessWidget {
       List<Widget> temps = [];
       for (int j = 0; j < 7; j++) {
         temps.add(CalendarDayView(
-          displayMonth: displayMonth,
           day: dates[i * 7 + j],
           onTabEvent: onTapEvent,
         ));
@@ -88,7 +89,7 @@ class CalendarBodyView extends StatelessWidget {
     return Flex(direction: Axis.vertical, children: [
       Container(
         decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Color(0xff000000)))),
+            border: Border(bottom: BorderSide(color: Color(0x22000000)))),
         child: Flex(
           direction: Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -114,12 +115,18 @@ class CalendarBodyView extends StatelessWidget {
       }
       res.add(Container(
         alignment: Alignment.center,
-        width: 50,
-        margin: EdgeInsets.fromLTRB(1.0, 10, 1.0, 10),
+        width: 50 / 797 * Constant.kHeight,
+        margin: EdgeInsets.fromLTRB(
+            (1 / 797 * Constant.kHeight),
+            (10 / 797 * Constant.kHeight),
+            (1 / 797 * Constant.kHeight),
+            (10 / 797 * Constant.kHeight)),
         child: Text(
           weekdays[i],
           style: TextStyle(
-              fontSize: 12, fontWeight: FontWeight.w500, color: dayColor),
+              fontSize: (12 / 797 * Constant.kHeight),
+              fontWeight: FontWeight.w500,
+              color: dayColor),
         ),
       ));
     }

@@ -1,7 +1,7 @@
 import '../ui/bloc_display_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../bloc/calendar_bloc.dart';
+import '../bloc/constants.dart';
 
 class CalendarChangeModalView extends StatefulWidget {
   const CalendarChangeModalView({Key? key}) : super(key: key);
@@ -18,9 +18,10 @@ class _CalendarChangeModalViewState extends State<CalendarChangeModalView> {
   @override
   void initState() {
     super.initState();
-    DateTime selectedDate = calendarBloc.getSelectedDate();
-    yearTo = selectedDate.year;
-    monthTo = selectedDate.month;
+    DateTime displayMonth = calendarBloc.getDisplayMonth()["selectedDate"];
+
+    yearTo = displayMonth.year;
+    monthTo = displayMonth.month;
   }
 
   @override
@@ -46,20 +47,21 @@ class _CalendarChangeModalViewState extends State<CalendarChangeModalView> {
     ];
 
     return Container(
-      // height: 200,
-      padding: EdgeInsets.fromLTRB(15, 10, 15, 50),
+      padding: EdgeInsets.fromLTRB(
+          (15 / 797 * Constant.kHeight),
+          (10 / 797 * Constant.kHeight),
+          (15 / 797 * Constant.kHeight),
+          (50 / 797 * Constant.kHeight)),
       width: double.infinity,
       decoration: BoxDecoration(
           color: Color(0xffffffff),
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+          borderRadius: BorderRadius.vertical(
+              top: Radius.circular(16 / 797 * Constant.kHeight))),
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
             alignment: Alignment.centerRight,
-            // decoration: BoxDecoration(
-            //     border: Border.all(color: Color(0xff000000))),
             child: IconButton(
               icon: Icon(
                 Icons.close,
@@ -69,14 +71,21 @@ class _CalendarChangeModalViewState extends State<CalendarChangeModalView> {
             ),
           ),
           Container(
-            // decoration: BoxDecoration(
-            //     border: Border.all(color: Color(0xff000000))),
-            padding: EdgeInsets.fromLTRB(0, 10, 0, 50),
+            padding:
+                EdgeInsets.fromLTRB(0, 0, 0, (30 / 797 * Constant.kHeight)),
             alignment: Alignment.center,
             child: Column(children: [
               Container(
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
+                padding: EdgeInsets.fromLTRB(
+                    (20 / 797 * Constant.kHeight),
+                    0,
+                    (20 / 797 * Constant.kHeight),
+                    (10 / 797 * Constant.kHeight)),
+                margin: EdgeInsets.fromLTRB(
+                    (10 / 797 * Constant.kHeight),
+                    0,
+                    (10 / 797 * Constant.kHeight),
+                    (20 / 797 * Constant.kHeight)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: yearToChangeRow(),
@@ -88,7 +97,7 @@ class _CalendarChangeModalViewState extends State<CalendarChangeModalView> {
             ]),
           ),
           Container(
-            height: 56,
+            height: (56 / 797 * Constant.kHeight),
             child: CupertinoButton(
                 color: Color(0xff000000),
                 minSize: MediaQuery.of(context).size.width,
@@ -124,19 +133,19 @@ class _CalendarChangeModalViewState extends State<CalendarChangeModalView> {
           },
           child: Container(
               alignment: Alignment.center,
-              width: 75,
-              height: 50,
-              // padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(2),
+              width: (75 / 797 * Constant.kHeight),
+              height: (50 / 797 * Constant.kHeight),
+              margin: EdgeInsets.all((2 / 797 * Constant.kHeight)),
               decoration: BoxDecoration(
                 border: Border.all(color: borderColor),
-                borderRadius: BorderRadius.circular(50),
+                borderRadius:
+                    BorderRadius.circular((50 / 797 * Constant.kHeight)),
               ),
               child: Text(
                 monthSymbol,
                 style: TextStyle(
                     color: Color(0xff000000),
-                    fontSize: 16,
+                    fontSize: (16 / 797 * Constant.kHeight),
                     fontWeight: FontWeight.w600),
               )),
         ));
@@ -155,7 +164,7 @@ class _CalendarChangeModalViewState extends State<CalendarChangeModalView> {
     res.add(GestureDetector(
       onTap: () {
         setState(() {
-          yearTo--;
+          if (yearTo > 1) yearTo--;
         });
       },
       child: Container(
@@ -176,17 +185,19 @@ class _CalendarChangeModalViewState extends State<CalendarChangeModalView> {
       },
       child: Text(
         "$yearTo",
-        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+        style: TextStyle(
+            fontSize: (22 / 797 * Constant.kHeight),
+            fontWeight: FontWeight.w700),
       ),
     ));
     res.add(GestureDetector(
       onTap: () {
         setState(() {
-          yearTo++;
+          if (yearTo < 9999) yearTo++;
         });
       },
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all((10 / 797 * Constant.kHeight)),
         decoration: BoxDecoration(border: Border.all(color: Color(0x00000000))),
         child: Icon(
           Icons.arrow_forward_ios,

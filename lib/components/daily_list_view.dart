@@ -6,22 +6,23 @@ import '../model/todo_provider.dart';
 import 'text_input_view.dart';
 import 'daily_todo_view.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import '../bloc/constants.dart';
 
 class DailyListView extends StatelessWidget {
   const DailyListView({
-    required this.displayMonth,
     required this.textWriteState,
     required this.setTextWriteState,
     Key? key,
   }) : super(key: key);
 
-  final Map displayMonth;
   final Function setTextWriteState;
   final bool textWriteState;
 
   @override
   Widget build(BuildContext context) {
     final dailyListScrollController = ScrollController();
+    Map displayMonth = calendarBloc.getDisplayMonth();
+    int keyInt = 0;
 
     List<Widget> listTodo = [];
 
@@ -29,8 +30,9 @@ class DailyListView extends StatelessWidget {
       if (todo.date.year == displayMonth["selectedDate"].year &&
           todo.date.month == displayMonth["selectedDate"].month &&
           todo.date.day == displayMonth["selectedDate"].day) {
+        print("?");
         listTodo.add(Slidable(
-          key: Key("${todo.id}"),
+          key: Key("${DateTime.now().microsecondsSinceEpoch} ${keyInt++}"),
           endActionPane: ActionPane(
             extentRatio: 0.2,
             motion: ScrollMotion(),
@@ -38,7 +40,7 @@ class DailyListView extends StatelessWidget {
               SlidableAction(
                 autoClose: true,
                 onPressed: (BuildContext context) {
-                  calendarBloc.deleteTodo(todo.id);
+                  calendarBloc.deleteTodo(todo.since);
                 },
                 backgroundColor: Color(0xffff0000),
                 foregroundColor: Colors.white,

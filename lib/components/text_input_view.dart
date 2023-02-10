@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../ui/bloc_display_widget.dart';
 import '../model/todo.dart';
+import '../bloc/constants.dart';
 
 class TextInputView extends StatefulWidget {
   const TextInputView({
@@ -44,7 +45,7 @@ class _TextInputViewState extends State<TextInputView> {
             onChanged: null),
         Expanded(
           child: Container(
-              margin: EdgeInsets.only(right: 10),
+              margin: EdgeInsets.only(right: (10 / 797 * Constant.kHeight)),
               child: TextField(
                 focusNode: _textFieldFocus,
                 controller: _textEditingController,
@@ -80,7 +81,8 @@ class _TextInputViewState extends State<TextInputView> {
         id: 0,
         date: DateTime(selectedDate.year, selectedDate.month, selectedDate.day),
         done: 0,
-        data: _textEditingController.text));
+        data: _textEditingController.text,
+        since: DateTime.now().millisecondsSinceEpoch));
 
     _textEditingController.text = "";
 

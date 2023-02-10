@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:laum/model/todo.dart';
-import '../ui/bloc_display_widget.dart';
+import '../bloc/constants.dart';
 
 class CalendarDayDotView extends StatefulWidget {
   const CalendarDayDotView({
@@ -20,7 +20,6 @@ class _CalendarDayDotViewState extends State<CalendarDayDotView> {
   @override
   void initState() {
     super.initState();
-    // setIsDailyList();
   }
 
   @override
@@ -31,22 +30,13 @@ class _CalendarDayDotViewState extends State<CalendarDayDotView> {
   @override
   Widget build(BuildContext context) {
     Color listInDayColor = Color(0x00000000);
-    print(widget.dailyList);
     if (widget.dailyList.isNotEmpty) {
       listInDayColor = Color(0x33000000);
     }
     return Container(
-      width: 5,
-      height: 5,
+      width: (5 / 797 * Constant.kHeight),
+      height: (5 / 797 * Constant.kHeight),
       decoration: BoxDecoration(color: listInDayColor),
     );
   }
-
-  // setIsDailyList() async {
-  //   bool temp = await dailyListBloc.isDailyList(
-  //       DateTime(widget.day["year"], widget.day["month"], widget.day["day"]));
-  //   setState(() {
-  //     isList = temp;
-  //   });
-  // }
 }

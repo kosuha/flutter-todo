@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../ui/bloc_display_widget.dart';
 import '../model/todo.dart';
+import '../bloc/constants.dart';
 
 class DailyTodoView extends StatefulWidget {
   const DailyTodoView({
@@ -32,12 +33,13 @@ class _DailyTodoViewState extends State<DailyTodoView> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = TextStyle(fontSize: 16);
+    TextStyle textStyle = TextStyle(fontSize: (16 / 797 * Constant.kHeight));
     if (widget.todo.done == 1) {
-      textStyle =
-          TextStyle(fontSize: 16, decoration: TextDecoration.lineThrough);
+      textStyle = TextStyle(
+          fontSize: (16 / 797 * Constant.kHeight),
+          decoration: TextDecoration.lineThrough);
     } else {
-      TextStyle(fontSize: 16);
+      TextStyle(fontSize: (16 / 797 * Constant.kHeight));
     }
 
     Color borderColor = Color(0xff000000);
@@ -51,7 +53,7 @@ class _DailyTodoViewState extends State<DailyTodoView> {
         margin: EdgeInsets.symmetric(horizontal: 1),
         decoration: BoxDecoration(
             border: Border.all(color: borderColor),
-            borderRadius: BorderRadius.circular(10)),
+            borderRadius: BorderRadius.circular(10 / 797 * Constant.kHeight)),
         child: Row(
           children: [
             Checkbox(
@@ -66,7 +68,7 @@ class _DailyTodoViewState extends State<DailyTodoView> {
                   } else {
                     checked = 0;
                   }
-                  calendarBloc.setDone(widget.todo.id, checked);
+                  calendarBloc.setDone(widget.todo.since, checked);
                 }),
             Expanded(
               child: GestureDetector(
@@ -74,29 +76,14 @@ class _DailyTodoViewState extends State<DailyTodoView> {
                   print("edit");
                 },
                 child: Container(
-                    margin: EdgeInsets.only(right: 10),
+                    margin:
+                        EdgeInsets.only(right: (10 / 797 * Constant.kHeight)),
                     child: Text(
                       widget.todo.data,
                       style: textStyle,
                     )),
               ),
             ),
-            // Offstage(
-            //   offstage: !optionState,
-            //   child: Container(
-            //     padding: EdgeInsets.all(10),
-            //     child: Row(
-            //       children: [
-            //         TextButton(onPressed: null, child: Text("Edit")),
-            //         TextButton(
-            //             onPressed: () {
-            //               dailyListBloc.deleteTodo(widget.todo.id);
-            //             },
-            //             child: Text("Delete"))
-            //       ],
-            //     ),
-            //   ),
-            // )
           ],
         ));
   }

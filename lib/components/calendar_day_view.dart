@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import '../ui/bloc_display_widget.dart';
 import 'calendar_day_dot_view.dart';
 import '../model/todo.dart';
+import '../bloc/constants.dart';
 
 class CalendarDayView extends StatelessWidget {
   const CalendarDayView({
     Key? key,
-    required this.displayMonth,
+    // required this.displayMonth,
     required this.day,
     required this.onTabEvent,
   }) : super(key: key);
 
-  final Map displayMonth;
+  // final Map displayMonth;
   final Map day;
   final Function onTabEvent;
 
   @override
   Widget build(BuildContext context) {
+    Map displayMonth = calendarBloc.getDisplayMonth();
     bool isSelectedDay = false;
     List<Todo> dailyList = [];
 
@@ -44,8 +46,10 @@ class CalendarDayView extends StatelessWidget {
       dayColor = Color(0xff000000);
     }
 
-    TextStyle textStyle =
-        TextStyle(color: dayColor, fontSize: 16, fontWeight: FontWeight.w400);
+    TextStyle textStyle = TextStyle(
+        color: dayColor,
+        fontSize: (16 / 797 * Constant.kHeight),
+        fontWeight: FontWeight.w400);
     BoxDecoration boxDecoration = BoxDecoration(
       shape: BoxShape.circle,
       color: Color(0x00000000),
@@ -61,14 +65,15 @@ class CalendarDayView extends StatelessWidget {
     if (isToday) {
       textStyle = TextStyle(
         color: Color(0xffff0000),
-        fontSize: 16,
+        fontSize: (16 / 797 * Constant.kHeight),
         fontWeight: FontWeight.w700,
       );
     }
 
     if (!day["inMonth"]) {
       boxDecoration = BoxDecoration(color: Color(0x00000000));
-      textStyle = TextStyle(color: Color(0x00000000), fontSize: 16);
+      textStyle = TextStyle(
+          color: Color(0x00000000), fontSize: (16 / 797 * Constant.kHeight));
     }
 
     return GestureDetector(
@@ -79,16 +84,16 @@ class CalendarDayView extends StatelessWidget {
       },
       child: Container(
           alignment: Alignment.center,
-          height: 50,
-          width: 50,
-          margin: EdgeInsets.all(1.0),
+          height: (50 / 797 * Constant.kHeight),
+          width: (50 / 797 * Constant.kHeight),
+          margin: EdgeInsets.all((1 / 797 * Constant.kHeight)),
           decoration: boxDecoration,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 5,
-                height: 5,
+                width: (5 / 797 * Constant.kHeight),
+                height: (5 / 797 * Constant.kHeight),
                 decoration: BoxDecoration(color: Color(0x00000000)),
               ),
               Text(

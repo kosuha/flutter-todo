@@ -23,7 +23,7 @@ class TodoProvider {
       version: 1,
       onCreate: (Database db, int version) async {
         await db.execute(
-          "CREATE TABLE IF NOT EXISTS $tableName(id INTEGER PRIMARY KEY AUTOINCREMENT, year INTEGER, month INTEGER, day INTEGER, done INTEGER, data TEXT)",
+          "CREATE TABLE IF NOT EXISTS $tableName(id INTEGER PRIMARY KEY AUTOINCREMENT, year INTEGER, month INTEGER, day INTEGER, done INTEGER, data TEXT, since INTEGER)",
         );
       },
       onUpgrade: (db, oldVersion, newVersion) {},
@@ -52,6 +52,7 @@ class TodoProvider {
         date: DateTime(maps[i]["year"], maps[i]["month"], maps[i]["day"]),
         done: maps[i]["done"],
         data: maps[i]["data"],
+        since: maps[i]["since"],
       ));
     }
     return list;
@@ -70,21 +71,22 @@ class TodoProvider {
         date: DateTime(maps[i]["year"], maps[i]["month"], maps[i]["day"]),
         done: maps[i]["done"],
         data: maps[i]["data"],
+        since: maps[i]["since"],
       ));
     }
     return list;
   }
 
-  Future<void> setDoneById(int id, int checked) async {
+  Future<void> setDoneBySince(int since, int checked) async {
     final db = await database;
 
-    await db
-        .rawQuery('UPDATE $tableName SET done = $checked WHERE id = ?', [id]);
+    await db.rawQuery(
+        'UPDATE $tableName SET done = $checked WHERE since = ?', [since]);
   }
 
-  deleteTodoById(int id) async {
+  deleteTodoBySince(int since) async {
     final db = await database;
 
-    await db.rawQuery('DELETE FROM $tableName WHERE id = ?', [id]);
+    await db.rawQuery('DELETE FROM $tableName WHERE since = ?', [since]);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:laum/components/calendar_body_view.dart';
+import '../components/calendar_body_view.dart';
 import '../bloc/calendar_bloc.dart';
 import '../components/calendar_title_view.dart';
 import '../components/daily_list_view.dart';

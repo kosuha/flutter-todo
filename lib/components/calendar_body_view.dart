@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:laum/ui/bloc_display_widget.dart';
+import '../ui/bloc_display_widget.dart';
 import 'calendar_day_view.dart';
 import '../bloc/constants.dart';
 
 class CalendarBodyView extends StatelessWidget {
   const CalendarBodyView({
     Key? key,
-    // required this.displayMonth,
     required this.onTapEvent,
   }) : super(key: key);
 
-  // final Map displayMonth;
   final Function onTapEvent;
 
   @override

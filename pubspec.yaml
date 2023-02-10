@@ -1,4 +1,4 @@
-name: laum
+name: to_do_list
 description: We Will Go To The Laum.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -38,7 +38,6 @@ dependencies:
   path: ^1.8.2
   path_provider: ^2.0.12
   flutter_slidable: ^2.0.0
-  
 
 dev_dependencies:
   flutter_test:

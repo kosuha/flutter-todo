@@ -49,6 +49,7 @@ class _TextInputViewState extends State<TextInputView> {
               child: TextField(
                 focusNode: _textFieldFocus,
                 controller: _textEditingController,
+                style: TextStyle(fontSize: (16 / 797 * Constant.kHeight)),
                 keyboardType: TextInputType.text,
                 autocorrect: false,
                 enableSuggestions: false,

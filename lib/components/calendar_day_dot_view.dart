@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:laum/model/todo.dart';
+import '../model/todo.dart';
 import '../bloc/constants.dart';
 
 class CalendarDayDotView extends StatefulWidget {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'contact_widget.dart';
-import 'bloc_display_widget.dart';
 import '../bloc/constants.dart';
 import 'opensource_widget.dart';
 
@@ -112,7 +111,7 @@ class SettingWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "1.0.0",
+                    Constant.version,
                     style: TextStyle(
                       fontSize: 16 / 797 * Constant.kHeight,
                       color: Color(0xffffffff),

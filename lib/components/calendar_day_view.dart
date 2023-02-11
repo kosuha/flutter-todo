@@ -92,6 +92,7 @@ class CalendarDayView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
+                margin: EdgeInsets.only(bottom: 3),
                 width: (5 / 797 * Constant.kHeight),
                 height: (5 / 797 * Constant.kHeight),
                 decoration: BoxDecoration(color: Color(0x00ffffff)),

@@ -41,9 +41,12 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
         stream: calendarBloc.displayMonth,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            double dailyListContainerHeight = 387 / 797 * Constant.kHeight;
+            double monthContainerHeight =
+                getMonthContainerHeight(snapshot.data["selectedDate"]);
+            double dailyListContainerHeight =
+                (797 - monthContainerHeight) / 797 * Constant.kHeight;
             Container monthContainer = Container(
-              height: 410 / 797 * Constant.kHeight,
+              height: monthContainerHeight / 797 * Constant.kHeight,
               decoration: BoxDecoration(
                   border: Border(bottom: BorderSide(color: Color(0x22ffffff)))),
               child: Column(
@@ -160,6 +163,27 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
             return CalendarChangeModalView();
           });
         });
+  }
+
+  double getMonthContainerHeight(DateTime month) {
+    int firstDay = DateTime(month.year, month.month, 1).weekday;
+    // print(firstDay);
+    if (month.month == 1 ||
+        month.month == 3 ||
+        month.month == 5 ||
+        month.month == 7 ||
+        month.month == 8 ||
+        month.month == 10 ||
+        month.month == 12) {
+      if (firstDay == 5 || firstDay == 6) {
+        return 410.0;
+      }
+    } else {
+      if (firstDay == 6) {
+        return 410.0;
+      }
+    }
+    return 360.0;
   }
 }
 

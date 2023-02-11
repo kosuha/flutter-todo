@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 class Constant {
   static late double kWidth;
   static late double kHeight;
+  static const String version = "1.0.0";
 
   static init(BuildContext context) {
     kWidth = MediaQuery.of(context).size.width;

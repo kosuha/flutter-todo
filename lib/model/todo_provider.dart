@@ -17,7 +17,8 @@ class TodoProvider {
 
   initDB() async {
     String path = join(await getDatabasesPath(), 'database.db');
-
+    // database 저장 경로
+    print(path);
     return await openDatabase(
       path,
       version: 1,

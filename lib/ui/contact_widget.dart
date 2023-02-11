@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../bloc/constants.dart';
@@ -78,9 +79,9 @@ class ContactWidget extends StatelessWidget {
     );
 
     try {
-      _showErrorAlert(context);
+      await FlutterEmailSender.send(email);
     } catch (error) {
-      // await FlutterEmailSender.send(email);
+      _showErrorAlert(context);
     }
   }
 
@@ -90,26 +91,18 @@ class ContactWidget extends StatelessWidget {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('제목'),
+        return CupertinoAlertDialog(
+          title: Text("알림"),
           content: SingleChildScrollView(
             child: ListBody(
-              //List Body를 기준으로 Text 설정
               children: <Widget>[
-                Text('Alert Dialog 입니다'),
-                Text('OK를 눌러 닫습니다'),
+                Text('사용 가능한 메일 앱이 없습니다.'),
               ],
             ),
           ),
           actions: [
             TextButton(
               child: Text('확인'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text('취소'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

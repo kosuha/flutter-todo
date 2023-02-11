@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'HomeWidget.dart';
-import 'SettingWidget.dart';
+import 'ui/bloc_display_widget.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,17 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: _title,
-      home: MainWidget(),
-    );
-  }
-}
-
-class MainWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // resizeToAvoidBottomInset: true,
-      body: HomeWidget(),
+      home: BlocDisplayWidget(),
     );
   }
 }

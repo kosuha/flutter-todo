@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import '../ui/bloc_display_widget.dart';
 import '../model/todo.dart';
@@ -7,12 +6,10 @@ import '../bloc/constants.dart';
 class DailyTodoView extends StatefulWidget {
   const DailyTodoView({
     required this.todo,
-    // required this.setTextWriteState,
     Key? key,
   }) : super(key: key);
 
   final Todo todo;
-  // final Function setTextWriteState;
 
   @override
   _DailyTodoViewState createState() => _DailyTodoViewState();

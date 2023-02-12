@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../bloc/constants.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 
@@ -53,7 +52,7 @@ class ContactWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "studio.laum@gmail.com",
+                      Constant.email,
                       style: TextStyle(
                         color: Color(0xffffffff),
                         fontSize: 16 / 797 * Constant.kHeight,
@@ -71,7 +70,7 @@ class ContactWidget extends StatelessWidget {
     final Email email = Email(
       body: '',
       subject: '[TODO 문의]',
-      recipients: ["studio.laum@gmail.com"],
+      recipients: [Constant.email],
       cc: [],
       bcc: [],
       attachmentPaths: [],

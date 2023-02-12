@@ -36,15 +36,3 @@ class OpensourceWidget extends StatelessWidget {
         ));
   }
 }
-
-/*
-
-bloc: 데이터 처리
-
-
-components: 처리된 데이터를 ui에 보내주기
-
-
-ui: 화면을 그려줌
-
-*/

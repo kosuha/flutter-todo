@@ -186,9 +186,3 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
     return 360.0;
   }
 }
-
-/*
-  TODO: 390 844(797)
-
-
-*/

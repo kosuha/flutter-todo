@@ -13,16 +13,6 @@ class CalendarBodyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> weekdayStrings = [
-      "SUN",
-      "MON",
-      "TUE",
-      "WED",
-      "THU",
-      "FRI",
-      "SAT"
-    ];
-
     Map displayMonth = calendarBloc.getDisplayMonth();
 
     List<Map<String, dynamic>> dates = [];
@@ -91,7 +81,7 @@ class CalendarBodyView extends StatelessWidget {
         child: Flex(
           direction: Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: weekdaysText(weekdayStrings),
+          children: weekdaysText(Constant.weekdayStrings),
         ),
       ),
       Flex(

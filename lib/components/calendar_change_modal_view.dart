@@ -31,21 +31,6 @@ class _CalendarChangeModalViewState extends State<CalendarChangeModalView> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> monthStrings = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
-    ];
-
     return Container(
       padding: EdgeInsets.fromLTRB(
           (15 / 797 * Constant.kHeight),
@@ -92,7 +77,7 @@ class _CalendarChangeModalViewState extends State<CalendarChangeModalView> {
                 ),
               ),
               Column(
-                children: monthsRow(monthStrings),
+                children: monthsRow(Constant.monthStrings),
               )
             ]),
           ),

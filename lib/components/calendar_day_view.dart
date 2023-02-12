@@ -7,12 +7,10 @@ import '../bloc/constants.dart';
 class CalendarDayView extends StatelessWidget {
   const CalendarDayView({
     Key? key,
-    // required this.displayMonth,
     required this.day,
     required this.onTabEvent,
   }) : super(key: key);
 
-  // final Map displayMonth;
   final Map day;
   final Function onTabEvent;
 

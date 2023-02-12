@@ -4,36 +4,18 @@ import '../bloc/constants.dart';
 
 class CalendarTitleView extends StatelessWidget {
   CalendarTitleView({
-    // required this.displayMonth,
     Key? key,
   }) : super(key: key);
-
-  // final Map displayMonth;
 
   @override
   Widget build(BuildContext context) {
     Map displayMonth = calendarBloc.getDisplayMonth();
 
-    final List<String> monthStrings = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
-    ];
-
     return Container(
         padding: EdgeInsets.all(10 / 797 * Constant.kHeight),
         alignment: Alignment.center,
         child: Text(
-          "${monthStrings[displayMonth["selectedDate"].month - 1].substring(0, 3).toUpperCase()} ${displayMonth["selectedDate"].day}, ${displayMonth["selectedDate"].year}",
+          "${Constant.monthStrings[displayMonth["selectedDate"].month - 1].substring(0, 3).toUpperCase()} ${displayMonth["selectedDate"].day}, ${displayMonth["selectedDate"].year}",
           style: TextStyle(
               color: Color(0xffffffff),
               letterSpacing: 0.05,

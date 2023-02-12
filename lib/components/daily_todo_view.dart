@@ -103,6 +103,7 @@ class _DailyTodoViewState extends State<DailyTodoView> {
                                 Constant.getSize(10.0),
                               ),
                               child: TextField(
+                                maxLength: 2000,
                                 style: TextStyle(color: Color(0xffffffff)),
                                 controller: _textEditingController,
                                 keyboardType: TextInputType.text,

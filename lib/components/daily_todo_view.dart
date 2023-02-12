@@ -37,7 +37,7 @@ class _DailyTodoViewState extends State<DailyTodoView> {
     if (widget.todo.done == 1) {
       textStyle = TextStyle(
           color: Color(0xffffffff),
-          fontSize: (18 / 797 * Constant.kHeight),
+          fontSize: Constant.getSize(18.0),
           decoration: TextDecoration.lineThrough);
     } else {
       textStyle = TextStyle(

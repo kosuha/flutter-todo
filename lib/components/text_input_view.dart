@@ -51,6 +51,7 @@ class _TextInputViewState extends State<TextInputView> {
               child: TextField(
                 focusNode: _textFieldFocus,
                 controller: _textEditingController,
+                maxLength: 2000,
                 style: TextStyle(
                     fontSize: Constant.getSize(18.0), color: Color(0xffffffff)),
                 keyboardType: TextInputType.text,

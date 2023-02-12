@@ -46,7 +46,7 @@ class CalendarDayView extends StatelessWidget {
 
     TextStyle textStyle = TextStyle(
         color: dayColor,
-        fontSize: (16 / 797 * Constant.kHeight),
+        fontSize: Constant.getSize(16.0),
         fontWeight: FontWeight.w400);
     BoxDecoration boxDecoration = BoxDecoration(
       shape: BoxShape.circle,
@@ -63,15 +63,15 @@ class CalendarDayView extends StatelessWidget {
     if (isToday) {
       textStyle = TextStyle(
         color: Color(0xff00ff00),
-        fontSize: (16 / 797 * Constant.kHeight),
+        fontSize: Constant.getSize(16.0),
         fontWeight: FontWeight.w700,
       );
     }
 
     if (!day["inMonth"]) {
       boxDecoration = BoxDecoration(color: Color(0x00ffffff));
-      textStyle = TextStyle(
-          color: Color(0x00ffffff), fontSize: (16 / 797 * Constant.kHeight));
+      textStyle =
+          TextStyle(color: Color(0x00ffffff), fontSize: Constant.getSize(16.0));
     }
 
     return GestureDetector(
@@ -82,17 +82,17 @@ class CalendarDayView extends StatelessWidget {
       },
       child: Container(
           alignment: Alignment.center,
-          height: (50 / 797 * Constant.kHeight),
-          width: (50 / 797 * Constant.kHeight),
-          margin: EdgeInsets.all((1 / 797 * Constant.kHeight)),
+          height: Constant.getSize(50.0),
+          width: Constant.getSize(50.0),
+          margin: EdgeInsets.all(Constant.getSize(1.0)),
           decoration: boxDecoration,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: 3),
-                width: (5 / 797 * Constant.kHeight),
-                height: (5 / 797 * Constant.kHeight),
+                margin: EdgeInsets.only(bottom: Constant.getSize(3.0)),
+                width: Constant.getSize(5.0),
+                height: Constant.getSize(5.0),
                 decoration: BoxDecoration(color: Color(0x00ffffff)),
               ),
               Text(

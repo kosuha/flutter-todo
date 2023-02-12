@@ -44,16 +44,17 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
             double monthContainerHeight =
                 getMonthContainerHeight(snapshot.data["selectedDate"]);
             double dailyListContainerHeight =
-                (797 - monthContainerHeight) / 797 * Constant.kHeight;
+                Constant.kHeight - Constant.kPaddingTop - monthContainerHeight;
+
             Container monthContainer = Container(
-              height: monthContainerHeight / 797 * Constant.kHeight,
+              height: monthContainerHeight,
               decoration: BoxDecoration(
                   border: Border(bottom: BorderSide(color: Color(0x22ffffff)))),
               child: Column(
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 15 / 797 * Constant.kHeight),
+                        horizontal: Constant.getSize(15.0)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -89,25 +90,27 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
                 ],
               ),
             );
+
             if (textWriteState) {
               monthContainer = Container();
-              dailyListContainerHeight = Constant.kHeight;
+              dailyListContainerHeight =
+                  Constant.kHeight - Constant.kPaddingTop;
             }
 
             return Container(
               alignment: Alignment.center,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+              margin: EdgeInsets.only(top: Constant.kPaddingTop),
               child: Column(
                 children: [
                   Container(
-                    width: (390 / 797 * Constant.kHeight),
+                    width: Constant.kWidth,
                     child: Column(children: [
                       monthContainer,
                       Container(
                         height: dailyListContainerHeight,
                         padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom +
-                              (10 / 797 * Constant.kHeight),
+                              Constant.getSize(10.0),
                         ),
                         child: DailyListView(
                             textWriteState: textWriteState,
@@ -154,7 +157,7 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
         backgroundColor: Color(0xffffffff),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
-          top: Radius.circular((30 / 797 * Constant.kHeight)),
+          top: Radius.circular(Constant.getSize(30.0)),
         )),
         context: context,
         builder: (BuildContext context) {
@@ -176,13 +179,14 @@ class _BlocDisplayWidgetState extends State<BlocDisplayWidget> {
         month.month == 10 ||
         month.month == 12) {
       if (firstDay == 5 || firstDay == 6) {
-        return 410.0;
+        // return 410.0;
+        return Constant.getSize(410.0);
       }
     } else {
       if (firstDay == 6) {
-        return 410.0;
+        return Constant.getSize(410.0);
       }
     }
-    return 360.0;
+    return Constant.getSize(360.0);
   }
 }

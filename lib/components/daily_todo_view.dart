@@ -31,7 +31,9 @@ class _DailyTodoViewState extends State<DailyTodoView> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = TextStyle(fontSize: (16 / 797 * Constant.kHeight));
+    TextStyle textStyle = TextStyle(
+      fontSize: Constant.getSize(16.0),
+    );
     if (widget.todo.done == 1) {
       textStyle = TextStyle(
           color: Color(0xffffffff),
@@ -39,7 +41,9 @@ class _DailyTodoViewState extends State<DailyTodoView> {
           decoration: TextDecoration.lineThrough);
     } else {
       textStyle = TextStyle(
-          color: Color(0xffffffff), fontSize: (18 / 797 * Constant.kHeight));
+        color: Color(0xffffffff),
+        fontSize: Constant.getSize(18.0),
+      );
     }
 
     Color borderColor = Color(0xffffffff);
@@ -52,11 +56,14 @@ class _DailyTodoViewState extends State<DailyTodoView> {
     return Container(
         margin: EdgeInsets.symmetric(horizontal: 1),
         padding: EdgeInsets.symmetric(
-            vertical: 3 / 797 * Constant.kHeight,
-            horizontal: 5 / 797 * Constant.kHeight),
+          vertical: Constant.getSize(3.0),
+          horizontal: Constant.getSize(3.0),
+        ),
         decoration: BoxDecoration(
             border: Border.all(color: borderColor),
-            borderRadius: BorderRadius.circular(10 / 797 * Constant.kHeight)),
+            borderRadius: BorderRadius.circular(
+              Constant.getSize(10.0),
+            )),
         child: Row(
           children: [
             Checkbox(
@@ -82,7 +89,9 @@ class _DailyTodoViewState extends State<DailyTodoView> {
                       backgroundColor: Color(0xff252525),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.vertical(
-                        top: Radius.circular((30 / 797 * Constant.kHeight)),
+                        top: Radius.circular(
+                          Constant.getSize(30.0),
+                        ),
                       )),
                       context: context,
                       builder: (BuildContext context) {
@@ -90,8 +99,9 @@ class _DailyTodoViewState extends State<DailyTodoView> {
                           padding: EdgeInsets.only(
                               bottom: MediaQuery.of(context).viewInsets.bottom),
                           child: Container(
-                              padding:
-                                  EdgeInsets.all((10 / 797 * Constant.kHeight)),
+                              padding: EdgeInsets.all(
+                                Constant.getSize(10.0),
+                              ),
                               child: TextField(
                                 style: TextStyle(color: Color(0xffffffff)),
                                 controller: _textEditingController,
@@ -121,8 +131,9 @@ class _DailyTodoViewState extends State<DailyTodoView> {
                       });
                 },
                 child: Container(
-                    margin:
-                        EdgeInsets.only(right: (10 / 797 * Constant.kHeight)),
+                    margin: EdgeInsets.only(
+                      right: Constant.getSize(10.0),
+                    ),
                     child: Text(
                       widget.todo.data,
                       style: textStyle,

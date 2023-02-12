@@ -38,9 +38,9 @@ class SettingWidget extends StatelessWidget {
                     ));
               },
               child: Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: 20 / 797 * Constant.kHeight),
-                height: 60 / 797 * Constant.kHeight,
+                margin:
+                    EdgeInsets.symmetric(horizontal: Constant.getSize(20.0)),
+                height: Constant.getSize(60.0),
                 decoration: BoxDecoration(
                     border:
                         Border(bottom: BorderSide(color: Color(0x11ffffff)))),
@@ -51,11 +51,11 @@ class SettingWidget extends StatelessWidget {
                     Text("문의하기",
                         style: TextStyle(
                           color: Color(0xffffffff),
-                          fontSize: 18 / 797 * Constant.kHeight,
+                          fontSize: Constant.getSize(18.0),
                         )),
                     Icon(
                       Icons.arrow_forward_ios,
-                      size: 15 / 797 * Constant.kHeight,
+                      size: Constant.getSize(15.0),
                       color: Color(0xffffffff),
                     )
                   ],
@@ -71,9 +71,9 @@ class SettingWidget extends StatelessWidget {
                     ));
               },
               child: Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: 20 / 797 * Constant.kHeight),
-                height: 60 / 797 * Constant.kHeight,
+                margin:
+                    EdgeInsets.symmetric(horizontal: Constant.getSize(20.0)),
+                height: Constant.getSize(60.0),
                 decoration: BoxDecoration(
                     border:
                         Border(bottom: BorderSide(color: Color(0x11ffffff)))),
@@ -84,11 +84,11 @@ class SettingWidget extends StatelessWidget {
                     Text("오픈소스",
                         style: TextStyle(
                           color: Color(0xffffffff),
-                          fontSize: 18 / 797 * Constant.kHeight,
+                          fontSize: Constant.getSize(18.0),
                         )),
                     Icon(
                       Icons.arrow_forward_ios,
-                      size: 15 / 797 * Constant.kHeight,
+                      size: Constant.getSize(15.0),
                       color: Color(0xffffffff),
                     )
                   ],
@@ -96,9 +96,8 @@ class SettingWidget extends StatelessWidget {
               ),
             ),
             Container(
-              margin:
-                  EdgeInsets.symmetric(horizontal: 20 / 797 * Constant.kHeight),
-              height: 60 / 797 * Constant.kHeight,
+              margin: EdgeInsets.symmetric(horizontal: Constant.getSize(20.0)),
+              height: Constant.getSize(60.0),
               decoration: BoxDecoration(
                   border: Border(bottom: BorderSide(color: Color(0x11ffffff)))),
               child: Row(
@@ -109,13 +108,13 @@ class SettingWidget extends StatelessWidget {
                     "버전",
                     style: TextStyle(
                       color: Color(0xffffffff),
-                      fontSize: 18 / 797 * Constant.kHeight,
+                      fontSize: Constant.getSize(18.0),
                     ),
                   ),
                   Text(
-                    Constant.version,
+                    Constant.kVersion,
                     style: TextStyle(
-                      fontSize: 16 / 797 * Constant.kHeight,
+                      fontSize: Constant.getSize(16.0),
                       color: Color(0xffffffff),
                     ),
                   ),

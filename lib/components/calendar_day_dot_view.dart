@@ -34,9 +34,11 @@ class _CalendarDayDotViewState extends State<CalendarDayDotView> {
       listInDayColor = Color(0xffffffff);
     }
     return Container(
-      margin: EdgeInsets.only(top: 3),
-      width: (5 / 797 * Constant.kHeight),
-      height: (5 / 797 * Constant.kHeight),
+      margin: EdgeInsets.only(
+        top: Constant.getSize(3.0),
+      ),
+      width: Constant.getSize(5.0),
+      height: Constant.getSize(5.0),
       decoration: BoxDecoration(color: listInDayColor),
     );
   }

@@ -13,13 +13,15 @@ class OpensourceContainerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
-      margin: EdgeInsets.symmetric(horizontal: 20 / 797 * Constant.kHeight),
-      height: 60 / 797 * Constant.kHeight,
+      margin: EdgeInsets.symmetric(
+        horizontal: Constant.getSize(20.0),
+      ),
+      height: Constant.getSize(60.0),
       child: Text(
         name,
         style: TextStyle(
           color: Color(0xffffffff),
-          fontSize: 18 / 797 * Constant.kHeight,
+          fontSize: Constant.getSize(18.0),
         ),
       ),
     );

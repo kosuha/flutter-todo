@@ -45,13 +45,14 @@ class _TextInputViewState extends State<TextInputView> {
             onChanged: null),
         Expanded(
           child: Container(
-              margin: EdgeInsets.only(right: (10 / 797 * Constant.kHeight)),
+              margin: EdgeInsets.only(
+                right: Constant.getSize(10.0),
+              ),
               child: TextField(
                 focusNode: _textFieldFocus,
                 controller: _textEditingController,
                 style: TextStyle(
-                    fontSize: (18 / 797 * Constant.kHeight),
-                    color: Color(0xffffffff)),
+                    fontSize: Constant.getSize(18.0), color: Color(0xffffffff)),
                 keyboardType: TextInputType.text,
                 autocorrect: false,
                 enableSuggestions: false,

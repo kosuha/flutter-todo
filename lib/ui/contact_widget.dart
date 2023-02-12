@@ -35,8 +35,9 @@ class ContactWidget extends StatelessWidget {
               },
               child: Container(
                 margin: EdgeInsets.symmetric(
-                    horizontal: 20 / 797 * Constant.kHeight),
-                height: 60 / 797 * Constant.kHeight,
+                  horizontal: Constant.getSize(20.0),
+                ),
+                height: Constant.getSize(60.0),
                 decoration: BoxDecoration(
                     border:
                         Border(bottom: BorderSide(color: Color(0x11ffffff)))),
@@ -48,14 +49,14 @@ class ContactWidget extends StatelessWidget {
                       "E-mail",
                       style: TextStyle(
                         color: Color(0xffffffff),
-                        fontSize: 18 / 797 * Constant.kHeight,
+                        fontSize: Constant.getSize(18.0),
                       ),
                     ),
                     Text(
-                      Constant.email,
+                      Constant.kEmail,
                       style: TextStyle(
                         color: Color(0xffffffff),
-                        fontSize: 16 / 797 * Constant.kHeight,
+                        fontSize: Constant.getSize(16.0),
                       ),
                     ),
                   ],
@@ -70,7 +71,7 @@ class ContactWidget extends StatelessWidget {
     final Email email = Email(
       body: '',
       subject: '[TODO 문의]',
-      recipients: [Constant.email],
+      recipients: [Constant.kEmail],
       cc: [],
       bcc: [],
       attachmentPaths: [],

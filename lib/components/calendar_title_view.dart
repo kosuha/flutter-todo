@@ -12,14 +12,14 @@ class CalendarTitleView extends StatelessWidget {
     Map displayMonth = calendarBloc.getDisplayMonth();
 
     return Container(
-        padding: EdgeInsets.all(10 / 797 * Constant.kHeight),
+        padding: EdgeInsets.all(Constant.getSize(10.0)),
         alignment: Alignment.center,
         child: Text(
-          "${Constant.monthStrings[displayMonth["selectedDate"].month - 1].substring(0, 3).toUpperCase()} ${displayMonth["selectedDate"].day}, ${displayMonth["selectedDate"].year}",
+          "${Constant.kMonthStrings[displayMonth["selectedDate"].month - 1].substring(0, 3).toUpperCase()} ${displayMonth["selectedDate"].day}, ${displayMonth["selectedDate"].year}",
           style: TextStyle(
               color: Color(0xffffffff),
               letterSpacing: 0.05,
-              fontSize: (24 / 797 * Constant.kHeight),
+              fontSize: Constant.getSize(24.0),
               fontWeight: FontWeight.w900),
         ));
   }

@@ -81,7 +81,7 @@ class CalendarBodyView extends StatelessWidget {
         child: Flex(
           direction: Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: weekdaysText(Constant.weekdayStrings),
+          children: weekdaysText(Constant.kWeekdayStrings),
         ),
       ),
       Flex(
@@ -103,16 +103,17 @@ class CalendarBodyView extends StatelessWidget {
       }
       res.add(Container(
         alignment: Alignment.center,
-        width: 50 / 797 * Constant.kHeight,
+        width: Constant.getSize(50.0),
         margin: EdgeInsets.fromLTRB(
-            (1 / 797 * Constant.kHeight),
-            (10 / 797 * Constant.kHeight),
-            (1 / 797 * Constant.kHeight),
-            (10 / 797 * Constant.kHeight)),
+          Constant.getSize(1.0),
+          Constant.getSize(10.0),
+          Constant.getSize(1.0),
+          Constant.getSize(10.0),
+        ),
         child: Text(
           weekdays[i],
           style: TextStyle(
-              fontSize: (12 / 797 * Constant.kHeight),
+              fontSize: Constant.getSize(12.0),
               fontWeight: FontWeight.w500,
               color: dayColor),
         ),
